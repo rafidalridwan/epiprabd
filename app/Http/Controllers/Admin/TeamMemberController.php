@@ -27,7 +27,7 @@ class TeamMemberController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/team', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/team');
         }
 
         TeamMember::create($validated);
@@ -47,7 +47,7 @@ class TeamMemberController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/team', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/team');
         } else {
             unset($validated['image']);
         }

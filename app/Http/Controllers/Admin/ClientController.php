@@ -26,7 +26,7 @@ class ClientController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('uploads/clients', 'public');
+            $validated['logo'] = store_public_upload($request->file('logo'), 'uploads/clients');
         }
 
         Client::create($validated);
@@ -45,7 +45,7 @@ class ClientController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('uploads/clients', 'public');
+            $validated['logo'] = store_public_upload($request->file('logo'), 'uploads/clients');
         } else {
             unset($validated['logo']);
         }

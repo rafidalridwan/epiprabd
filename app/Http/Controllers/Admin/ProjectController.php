@@ -33,10 +33,10 @@ class ProjectController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/projects', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/projects');
         }
         if ($request->hasFile('banner_image')) {
-            $validated['banner_image'] = $request->file('banner_image')->store('uploads/projects', 'public');
+            $validated['banner_image'] = store_public_upload($request->file('banner_image'), 'uploads/projects');
         }
 
         Project::create($validated);
@@ -59,12 +59,12 @@ class ProjectController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/projects', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/projects');
         } else {
             unset($validated['image']);
         }
         if ($request->hasFile('banner_image')) {
-            $validated['banner_image'] = $request->file('banner_image')->store('uploads/projects', 'public');
+            $validated['banner_image'] = store_public_upload($request->file('banner_image'), 'uploads/projects');
         } else {
             unset($validated['banner_image']);
         }

@@ -61,13 +61,13 @@ class PageController extends Controller
         unset($validated['stat_value'], $validated['stat_label']);
 
         if ($request->hasFile('banner_image')) {
-            $validated['banner_image'] = $request->file('banner_image')->store('uploads/pages', 'public');
+            $validated['banner_image'] = store_public_upload($request->file('banner_image'), 'uploads/pages');
         } else {
             unset($validated['banner_image']);
         }
 
         if ($request->hasFile('intro_image')) {
-            $validated['intro_image'] = $request->file('intro_image')->store('uploads/pages', 'public');
+            $validated['intro_image'] = store_public_upload($request->file('intro_image'), 'uploads/pages');
         } else {
             unset($validated['intro_image']);
         }

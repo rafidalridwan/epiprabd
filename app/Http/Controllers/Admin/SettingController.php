@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -31,13 +30,11 @@ class SettingController extends Controller
         }
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('uploads/settings', 'public');
-            Setting::setValue('logo', $path);
+            Setting::setValue('logo', store_public_upload($request->file('logo'), 'uploads/settings'));
         }
 
         if ($request->hasFile('og_image')) {
-            $path = $request->file('og_image')->store('uploads/settings', 'public');
-            Setting::setValue('og_image', $path);
+            Setting::setValue('og_image', store_public_upload($request->file('og_image'), 'uploads/settings'));
         }
 
         return back()->with('success', 'Settings updated successfully.');

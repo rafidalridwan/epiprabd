@@ -26,7 +26,7 @@ class TestimonialController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/testimonials', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/testimonials');
         }
 
         Testimonial::create($validated);
@@ -45,7 +45,7 @@ class TestimonialController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/testimonials', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/testimonials');
         } else {
             unset($validated['image']);
         }

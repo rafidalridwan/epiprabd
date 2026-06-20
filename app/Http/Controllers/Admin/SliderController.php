@@ -24,7 +24,7 @@ class SliderController extends Controller
     {
         $validated = $this->validateSlider($request);
         $validated['is_active'] = $request->boolean('is_active');
-        $validated['image'] = $request->file('image')->store('uploads/sliders', 'public');
+        $validated['image'] = store_public_upload($request->file('image'), 'uploads/sliders');
 
         Slider::create($validated);
 
@@ -42,7 +42,7 @@ class SliderController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/sliders', 'public');
+            $validated['image'] = store_public_upload($request->file('image'), 'uploads/sliders');
         } else {
             unset($validated['image']);
         }
