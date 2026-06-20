@@ -16,6 +16,7 @@
         <table class="admin-table">
             <thead>
                 <tr>
+                    <th style="width:80px;">Banner</th>
                     <th>Title</th>
                     <th>Slug</th>
                     <th>Status</th>
@@ -25,6 +26,7 @@
             <tbody>
                 @foreach($pages as $page)
                 <tr>
+                    <td>@include('admin.partials.image-thumb', ['path' => $page->banner_image, 'alt' => $page->title, 'fallback' => 'images/background/bg-11.jpg', 'size' => 'lg'])</td>
                     <td><strong>{{ $page->title }}</strong></td>
                     <td><code style="background:#f1f5f9;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.8rem;">{{ $page->slug }}</code></td>
                     <td>
@@ -34,10 +36,10 @@
                         <span class="admin-badge admin-badge-warning">Draft</span>
                         @endif
                     </td>
-                    <td>
-                        <a href="{{ route('admin.pages.edit', $page) }}" class="admin-btn admin-btn-sm admin-btn-primary">
-                            <i class="fa fa-pencil"></i> Edit
-                        </a>
+                    <td class="admin-actions">
+                        @include('admin.partials.table-actions', [
+                            'editUrl' => route('admin.pages.edit', $page),
+                        ])
                     </td>
                 </tr>
                 @endforeach

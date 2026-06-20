@@ -47,15 +47,14 @@
                         <span class="admin-badge admin-badge-warning">Draft</span>
                         @endif
                     </td>
-                    <td>
-                        <div class="admin-btn-group">
-                            <a href="{{ route('jobs.show', $job->slug) }}" class="admin-btn admin-btn-sm admin-btn-secondary" target="_blank"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.jobs.edit', $job) }}" class="admin-btn admin-btn-sm admin-btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                            <form method="POST" action="{{ route('admin.jobs.destroy', $job) }}" onsubmit="return confirm('Delete this job circular?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="admin-btn admin-btn-sm admin-btn-danger"><i class="fa fa-trash"></i></button>
-                            </form>
-                        </div>
+                    <td class="admin-actions">
+                        @include('admin.partials.table-actions', [
+                            'viewUrl' => route('jobs.show', $job->slug),
+                            'viewTarget' => '_blank',
+                            'editUrl' => route('admin.jobs.edit', $job),
+                            'deleteUrl' => route('admin.jobs.destroy', $job),
+                            'deleteConfirm' => 'Delete this job circular?',
+                        ])
                     </td>
                 </tr>
                 @empty

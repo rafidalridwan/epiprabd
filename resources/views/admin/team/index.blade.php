@@ -9,19 +9,19 @@
 </div>
 <div class="card">
     <table>
-        <thead><tr><th>Name</th><th>Position</th><th>Featured</th><th></th></tr></thead>
+        <thead><tr><th style="width:80px;">Photo</th><th>Name</th><th>Position</th><th>Featured</th><th></th></tr></thead>
         <tbody>
             @foreach($members as $member)
             <tr>
+                <td>@include('admin.partials.image-thumb', ['path' => $member->image, 'alt' => $member->name, 'fallback' => 'images/our-team5/pic1.jpg'])</td>
                 <td>{{ $member->name }}</td>
                 <td>{{ $member->position }}</td>
                 <td>{{ $member->is_featured ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ route('admin.team.edit', $member) }}" class="btn btn-primary">Edit</a>
-                    <form method="POST" action="{{ route('admin.team.destroy', $member) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td class="admin-actions">
+                    @include('admin.partials.table-actions', [
+                        'editUrl' => route('admin.team.edit', $member),
+                        'deleteUrl' => route('admin.team.destroy', $member),
+                    ])
                 </td>
             </tr>
             @endforeach

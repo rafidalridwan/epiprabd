@@ -38,4 +38,77 @@ document.addEventListener('DOMContentLoaded', function () {
             overlay.classList.remove('show');
         });
     }
+
+    document.querySelectorAll('[data-image-upload]').forEach(function (wrap) {
+        const input = wrap.querySelector('[data-image-input]');
+        const newPreview = wrap.querySelector('[data-image-preview-new]');
+        const newImg = newPreview?.querySelector('img');
+        const filenameEl = wrap.querySelector('[data-image-filename]');
+        const clearBtn = wrap.querySelector('[data-image-clear]');
+        let objectUrl = null;
+
+        if (!input || !newPreview || !newImg) {
+            return;
+        }
+
+        function revokeObjectUrl() {
+            if (objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+                objectUrl = null;
+            }
+        }
+
+        function resetSelection() {
+            input.value = '';
+            revokeObjectUrl();
+            newImg.removeAttribute('src');
+            newPreview.hidden = true;
+
+            if (filenameEl) {
+                filenameEl.textContent = 'No file chosen';
+                filenameEl.classList.remove('is-selected');
+            }
+        }
+
+        function showPreview(file) {
+            revokeObjectUrl();
+            objectUrl = URL.createObjectURL(file);
+
+            newImg.onload = function () {
+                newPreview.hidden = false;
+            };
+
+            newImg.onerror = function () {
+                resetSelection();
+            };
+
+            newImg.src = objectUrl;
+
+            if (newImg.complete) {
+                newPreview.hidden = false;
+            }
+
+            if (filenameEl) {
+                filenameEl.textContent = file.name;
+                filenameEl.classList.add('is-selected');
+            }
+        }
+
+        input.addEventListener('change', function () {
+            const file = input.files?.[0];
+
+            if (!file || !file.type.startsWith('image/')) {
+                resetSelection();
+                return;
+            }
+
+            showPreview(file);
+        });
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function () {
+                resetSelection();
+            });
+        }
+    });
 });

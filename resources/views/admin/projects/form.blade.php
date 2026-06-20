@@ -42,16 +42,20 @@
                 <textarea class="admin-form-control richtext-editor" name="description" data-richtext-height="320" placeholder="Write project description...">{{ old('description', $project->description) }}</textarea>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-                <div class="admin-form-group">
-                    <label>Image</label>
-                    <input type="file" class="admin-form-control" name="image" accept="image/*">
-                    @if($project->image)<p class="admin-form-hint">Current: {{ $project->image }}</p>@endif
-                </div>
-                <div class="admin-form-group">
-                    <label>Banner Image</label>
-                    <input type="file" class="admin-form-control" name="banner_image" accept="image/*">
-                    @if($project->banner_image)<p class="admin-form-hint">Current: {{ $project->banner_image }}</p>@endif
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'image',
+                    'label' => 'Image',
+                    'current' => $project->image,
+                    'sizeTip' => 'Recommended: 570×700px portrait JPG or PNG for project grid cards.',
+                    'fallback' => 'images/gallery/portrait/pic1.jpg',
+                ])
+                @include('admin.partials.image-upload', [
+                    'name' => 'banner_image',
+                    'label' => 'Banner Image',
+                    'current' => $project->banner_image,
+                    'sizeTip' => 'Recommended: 1920×600px JPG or PNG for project detail banner.',
+                    'fallback' => 'images/background/bg-11.jpg',
+                ])
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group">

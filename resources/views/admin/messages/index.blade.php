@@ -36,14 +36,13 @@
                         <span class="admin-badge admin-badge-danger">New</span>
                         @endif
                     </td>
-                    <td>
-                        <div class="admin-btn-group">
-                            <a href="{{ route('admin.messages.show', $message) }}" class="admin-btn admin-btn-sm admin-btn-primary"><i class="fa fa-eye"></i> View</a>
-                            <form method="POST" action="{{ route('admin.messages.destroy', $message) }}" onsubmit="return confirm('Delete this message?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="admin-btn admin-btn-sm admin-btn-danger"><i class="fa fa-trash"></i></button>
-                            </form>
-                        </div>
+                    <td class="admin-actions">
+                        @include('admin.partials.table-actions', [
+                            'viewUrl' => route('admin.messages.show', $message),
+                            'viewTitle' => 'View',
+                            'deleteUrl' => route('admin.messages.destroy', $message),
+                            'deleteConfirm' => 'Delete this message?',
+                        ])
                     </td>
                 </tr>
                 @empty

@@ -23,11 +23,13 @@
             </div>
             <div class="admin-form-group"><label>Meta Description</label><textarea class="admin-form-control" name="meta_description" rows="2">{{ old('meta_description', $page->meta_description) }}</textarea></div>
             <div class="admin-form-group"><label>Banner Title</label><input class="admin-form-control" name="banner_title" value="{{ old('banner_title', $page->banner_title) }}"></div>
-            <div class="admin-form-group">
-                <label>Banner Image</label>
-                <input type="file" class="admin-form-control" name="banner_image" accept="image/*">
-                @if($page->banner_image)<p class="admin-form-hint">Current: {{ $page->banner_image }}</p>@endif
-            </div>
+            @include('admin.partials.image-upload', [
+                'name' => 'banner_image',
+                'label' => 'Banner Image',
+                'current' => $page->banner_image,
+                'sizeTip' => 'Recommended: 1920×600px JPG or PNG for full-width page banners.',
+                'fallback' => 'images/background/bg-11.jpg',
+            ])
             <div class="admin-form-group"><label>Heading</label><input class="admin-form-control" name="heading" value="{{ old('heading', $page->heading) }}"></div>
             <div class="admin-form-group">
                 <label>Content</label>
@@ -38,11 +40,13 @@
             @if($page->slug === 'home')
             <div class="admin-form-section">
                 <h3><i class="fa fa-home" style="color:var(--admin-primary);"></i> Welcome Section</h3>
-                <div class="admin-form-group">
-                    <label>Intro Image</label>
-                    <input type="file" class="admin-form-control" name="intro_image" accept="image/*">
-                    @if($page->intro_image)<p class="admin-form-hint">Current: {{ $page->intro_image }}</p>@endif
-                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'intro_image',
+                    'label' => 'Intro Image',
+                    'current' => $page->intro_image,
+                    'sizeTip' => 'Recommended: 570×700px portrait JPG or PNG for the home welcome section.',
+                    'fallback' => 'images/gallery/portrait/pic2.jpg',
+                ])
             </div>
 
             <div class="admin-form-section">
@@ -66,7 +70,16 @@
                 <div class="admin-form-group"><label>Content</label><textarea class="admin-form-control" name="facts_content" rows="3">{{ old('facts_content', $page->facts_content) }}</textarea></div>
                 <div class="admin-form-group">
                     <label>Background Image Path</label>
+                    @if($page->facts_bg_image)
+                    <div class="admin-image-preview-box admin-image-preview-static">
+                        <span class="admin-image-preview-label">Current background</span>
+                        <div class="admin-image-preview-frame">
+                            <img src="{{ media_url($page->facts_bg_image, 'images/background/bg-11.jpg') }}" alt="Facts background">
+                        </div>
+                    </div>
+                    @endif
                     <input class="admin-form-control" name="facts_bg_image" value="{{ old('facts_bg_image', $page->facts_bg_image) }}" placeholder="images/background/bg-11.jpg">
+                    <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 1920×900px JPG or PNG. Use a path under public/ or upload via storage.</p>
                 </div>
                 @php $stats = old('stat_value') ? collect(old('stat_value'))->map(fn($v, $i) => ['value' => $v, 'label' => old('stat_label.'.$i)]) : collect($page->facts_stats ?? []); @endphp
                 @foreach(range(0, 2) as $i)

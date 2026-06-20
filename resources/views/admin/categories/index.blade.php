@@ -17,12 +17,11 @@
                 <td>{{ $category->slug }}</td>
                 <td>{{ $category->sort_order }}</td>
                 <td>{{ $category->is_active ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-primary">Edit</a>
-                    <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td class="admin-actions">
+                    @include('admin.partials.table-actions', [
+                        'editUrl' => route('admin.categories.edit', $category),
+                        'deleteUrl' => route('admin.categories.destroy', $category),
+                    ])
                 </td>
             </tr>
             @endforeach

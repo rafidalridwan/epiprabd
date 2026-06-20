@@ -29,6 +29,11 @@ Route::get('/storage-link', function () {
     return redirect()->back()->with('success', 'Storage linked successfully.');
 });
 
+Route::get('/seed', function () {
+    \Illuminate\Support\Facades\Artisan::call('db:seed');
+    return redirect()->back()->with('success', 'Storage linked successfully.');
+});
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');

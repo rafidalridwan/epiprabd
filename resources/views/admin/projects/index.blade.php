@@ -19,6 +19,7 @@
         <table class="admin-table">
             <thead>
                 <tr>
+                    <th style="width:80px;">Image</th>
                     <th>Title</th>
                     <th>Category</th>
                     <th>Featured</th>
@@ -29,6 +30,7 @@
             <tbody>
                 @forelse($projects as $project)
                 <tr>
+                    <td>@include('admin.partials.image-thumb', ['path' => $project->image, 'alt' => $project->title, 'fallback' => 'images/gallery/portrait/pic1.jpg'])</td>
                     <td><strong>{{ $project->title }}</strong></td>
                     <td>{{ $project->category?->name ?? '—' }}</td>
                     <td>
@@ -45,20 +47,19 @@
                         <span class="admin-badge admin-badge-warning">Draft</span>
                         @endif
                     </td>
-                    <td>
-                        <div class="admin-btn-group">
-                            <a href="{{ route('projects.show', $project->slug) }}" class="admin-btn admin-btn-sm admin-btn-secondary" target="_blank"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.projects.edit', $project) }}" class="admin-btn admin-btn-sm admin-btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                            <form method="POST" action="{{ route('admin.projects.destroy', $project) }}" onsubmit="return confirm('Delete this project?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="admin-btn admin-btn-sm admin-btn-danger"><i class="fa fa-trash"></i></button>
-                            </form>
-                        </div>
+                    <td class="admin-actions">
+                        @include('admin.partials.table-actions', [
+                            'viewUrl' => route('projects.show', $project->slug),
+                            'viewTarget' => '_blank',
+                            'editUrl' => route('admin.projects.edit', $project),
+                            'deleteUrl' => route('admin.projects.destroy', $project),
+                            'deleteConfirm' => 'Delete this project?',
+                        ])
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         <div class="admin-empty">
                             <i class="fa fa-briefcase"></i>
                             <p>No projects yet. <a href="{{ route('admin.projects.create') }}">Add your first project</a></p>

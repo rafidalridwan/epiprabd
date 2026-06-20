@@ -20,8 +20,8 @@ class SettingController extends Controller
     {
         $fields = [
             'site_name', 'site_email', 'site_phone', 'site_address',
-            'footer_text', 'map_embed', 'facebook', 'twitter', 'linkedin',
-            'instagram', 'youtube', 'rss',
+            'footer_text', 'map_embed', 'meta_keywords', 'og_title', 'og_description',
+            'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'rss',
         ];
 
         foreach ($fields as $field) {
@@ -33,6 +33,11 @@ class SettingController extends Controller
         if ($request->hasFile('logo')) {
             $path = $request->file('logo')->store('uploads/settings', 'public');
             Setting::setValue('logo', $path);
+        }
+
+        if ($request->hasFile('og_image')) {
+            $path = $request->file('og_image')->store('uploads/settings', 'public');
+            Setting::setValue('og_image', $path);
         }
 
         return back()->with('success', 'Settings updated successfully.');

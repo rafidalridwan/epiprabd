@@ -7,7 +7,7 @@
 <div class="admin-page-header">
     <div>
         <h1>Site Settings</h1>
-        <p>Configure your website contact info, branding, and social links.</p>
+        <p>Configure your website contact info, branding, SEO, and social links.</p>
     </div>
 </div>
 
@@ -21,13 +21,13 @@
                 <label>Site Name</label>
                 <input class="admin-form-control" name="site_name" value="{{ $settings['site_name'] ?? '' }}">
             </div>
-            <div class="admin-form-group">
-                <label>Logo</label>
-                <input type="file" class="admin-form-control" name="logo" accept="image/*">
-                @if(!empty($settings['logo']))
-                <p class="admin-form-hint">Current: {{ $settings['logo'] }}</p>
-                @endif
-            </div>
+            @include('admin.partials.image-upload', [
+                'name' => 'logo',
+                'label' => 'Logo',
+                'current' => $settings['logo'] ?? null,
+                'sizeTip' => 'Recommended: 340×98px PNG or SVG with transparent background.',
+                'fallback' => 'images/logo-dark.png',
+            ])
 
             <div class="admin-form-section">
                 <h3><i class="fa fa-phone" style="color:var(--admin-primary);"></i> Contact Information</h3>
@@ -52,6 +52,32 @@
                     <input class="admin-form-control" name="map_embed" value="{{ $settings['map_embed'] ?? '' }}">
                     <p class="admin-form-hint">Paste the iframe src URL from Google Maps embed.</p>
                 </div>
+            </div>
+
+            <div class="admin-form-section">
+                <h3><i class="fa fa-search" style="color:var(--admin-primary);"></i> SEO &amp; Open Graph</h3>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:1rem;">Used on public website pages only (search engines and social sharing).</p>
+                <div class="admin-form-group">
+                    <label>Meta Keywords</label>
+                    <textarea class="admin-form-control" name="meta_keywords" rows="2" placeholder="architecture, interior design, construction">{{ $settings['meta_keywords'] ?? '' }}</textarea>
+                    <p class="admin-form-hint">Comma-separated keywords for search engines.</p>
+                </div>
+                <div class="admin-form-group">
+                    <label>OG Title</label>
+                    <input class="admin-form-control" name="og_title" value="{{ $settings['og_title'] ?? '' }}" placeholder="Defaults to page or site title">
+                </div>
+                <div class="admin-form-group">
+                    <label>OG Description</label>
+                    <textarea class="admin-form-control" name="og_description" rows="2" placeholder="Short description for social sharing">{{ $settings['og_description'] ?? '' }}</textarea>
+                    <p class="admin-form-hint">Also used as the default meta description when a page has none set.</p>
+                </div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'og_image',
+                    'label' => 'OG Image',
+                    'current' => $settings['og_image'] ?? null,
+                    'sizeTip' => 'Recommended: 1200×630px JPG or PNG (1.91:1 ratio for Facebook, LinkedIn, etc.). Falls back to logo if empty.',
+                    'fallback' => 'images/logo-dark.png',
+                ])
             </div>
 
             <div class="admin-form-section">

@@ -9,19 +9,19 @@
 </div>
 <div class="card">
     <table>
-        <thead><tr><th>Title</th><th>Order</th><th>Active</th><th></th></tr></thead>
+        <thead><tr><th style="width:80px;">Image</th><th>Title</th><th>Order</th><th>Active</th><th></th></tr></thead>
         <tbody>
             @foreach($sliders as $slider)
             <tr>
+                <td>@include('admin.partials.image-thumb', ['path' => $slider->image, 'alt' => $slider->title, 'fallback' => 'images/main-slider/slider1/slide1.jpg', 'size' => 'lg'])</td>
                 <td>{{ $slider->title }}</td>
                 <td>{{ $slider->sort_order }}</td>
                 <td>{{ $slider->is_active ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ route('admin.sliders.edit', $slider) }}" class="btn btn-primary">Edit</a>
-                    <form method="POST" action="{{ route('admin.sliders.destroy', $slider) }}" style="display:inline;" onsubmit="return confirm('Delete?')">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td class="admin-actions">
+                    @include('admin.partials.table-actions', [
+                        'editUrl' => route('admin.sliders.edit', $slider),
+                        'deleteUrl' => route('admin.sliders.destroy', $slider),
+                    ])
                 </td>
             </tr>
             @endforeach

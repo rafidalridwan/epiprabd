@@ -10,7 +10,14 @@
         @if($member->exists) @method('PUT') @endif
         <div class="form-group"><label>Name</label><input class="form-control" name="name" value="{{ old('name', $member->name) }}" required></div>
         <div class="form-group"><label>Position</label><input class="form-control" name="position" value="{{ old('position', $member->position) }}"></div>
-        <div class="form-group"><label>Photo</label><input type="file" class="form-control" name="image" accept="image/*">@if($member->image)<p>Current: {{ $member->image }}</p>@endif</div>
+        @include('admin.partials.image-upload', [
+            'name' => 'image',
+            'label' => 'Photo',
+            'current' => $member->image,
+            'optionalHint' => $member->exists ? '(leave empty to keep current)' : null,
+            'sizeTip' => 'Recommended: 400×500px portrait JPG or PNG for team member photo.',
+            'fallback' => 'images/our-team5/pic1.jpg',
+        ])
         <div class="form-group"><label>Facebook</label><input class="form-control" name="facebook" value="{{ old('facebook', $member->facebook) }}"></div>
         <div class="form-group"><label>Twitter</label><input class="form-control" name="twitter" value="{{ old('twitter', $member->twitter) }}"></div>
         <div class="form-group"><label>LinkedIn</label><input class="form-control" name="linkedin" value="{{ old('linkedin', $member->linkedin) }}"></div>

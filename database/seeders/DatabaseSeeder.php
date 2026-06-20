@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'platform.singularity@gmail.com'],
+            ['email' => 'platform.pipra@gmail.com'],
             [
                 'name' => 'Admin',
                 'password' => '12345678',
@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
             'instagram' => '#',
             'youtube' => '#',
             'rss' => '#',
+            'meta_keywords' => 'architecture, interior design, construction, modern template, building',
+            'og_title' => 'Modern Template | Creative Architecture Studio',
+            'og_description' => 'We are a creative architecture studio specializing in modern interior design and construction projects.',
         ];
 
         foreach ($settings as $key => $value) {

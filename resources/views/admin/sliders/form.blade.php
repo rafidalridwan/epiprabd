@@ -24,11 +24,15 @@
                 <label>Description</label>
                 <textarea class="admin-form-control richtext-editor richtext-simple" name="description" data-richtext-height="140" placeholder="Slider description...">{{ old('description', $slider->description) }}</textarea>
             </div>
-            <div class="admin-form-group">
-                <label>Image {{ $slider->exists ? '(leave empty to keep current)' : '' }}</label>
-                <input type="file" class="admin-form-control" name="image" accept="image/*" {{ $slider->exists ? '' : 'required' }}>
-                @if($slider->image)<p class="admin-form-hint">Current: {{ $slider->image }}</p>@endif
-            </div>
+            @include('admin.partials.image-upload', [
+                'name' => 'image',
+                'label' => 'Image',
+                'current' => $slider->image,
+                'required' => ! $slider->exists,
+                'optionalHint' => $slider->exists ? '(leave empty to keep current)' : null,
+                'sizeTip' => 'Recommended: 1920×900px JPG or PNG for full-width home slider.',
+                'fallback' => 'images/main-slider/slider1/slide1.jpg',
+            ])
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group"><label>Button Text</label><input class="admin-form-control" name="button_text" value="{{ old('button_text', $slider->button_text) }}"></div>
                 <div class="admin-form-group"><label>Button Link</label><input class="admin-form-control" name="button_link" value="{{ old('button_link', $slider->button_link) }}"></div>

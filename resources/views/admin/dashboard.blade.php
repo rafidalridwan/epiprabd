@@ -115,8 +115,11 @@
                         </td>
                         <td>{{ $msg->email }}</td>
                         <td>{{ $msg->created_at->format('M d, Y') }}</td>
-                        <td>
-                            <a href="{{ route('admin.messages.show', $msg) }}" class="admin-btn admin-btn-sm admin-btn-primary">View</a>
+                        <td class="admin-actions">
+                            @include('admin.partials.table-actions', [
+                                'viewUrl' => route('admin.messages.show', $msg),
+                                'viewTitle' => 'View',
+                            ])
                         </td>
                     </tr>
                     @endforeach
