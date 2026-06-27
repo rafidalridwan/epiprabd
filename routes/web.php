@@ -41,6 +41,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/career', [JobCircularController::class, 'index'])->name('career.index');
 Route::get('/jobs/{slug}', [JobCircularController::class, 'show'])->name('jobs.show');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {

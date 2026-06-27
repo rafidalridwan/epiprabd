@@ -44,7 +44,7 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 @include('admin.partials.image-upload', [
                     'name' => 'image',
-                    'label' => 'Image',
+                    'label' => 'Thumbnail Image',
                     'current' => $project->image,
                     'sizeTip' => 'Recommended: 570×700px portrait JPG or PNG for project grid cards.',
                     'fallback' => 'images/gallery/portrait/pic1.jpg',
@@ -56,6 +56,45 @@
                     'sizeTip' => 'Recommended: 1920×600px JPG or PNG for project detail banner.',
                     'fallback' => 'images/background/bg-11.jpg',
                 ])
+            </div>
+
+            <div class="admin-form-group admin-multi-image-upload" data-multi-image-upload>
+                <label>Gallery Images (Slider)</label>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Upload multiple images for the auto-playing slider on the project detail page. If none are added, the thumbnail image is used.</p>
+
+                @if($project->exists && $project->images->count())
+                <div class="admin-gallery-grid" data-gallery-existing>
+                    @foreach($project->images as $galleryImage)
+                    <label class="admin-gallery-item">
+                        <input type="checkbox" name="remove_images[]" value="{{ $galleryImage->id }}">
+                        <span class="admin-gallery-item-frame">
+                            <img src="{{ media_url($galleryImage->image, 'images/gallery/portrait/pic1.jpg') }}" alt="Gallery image">
+                        </span>
+                        <span class="admin-gallery-item-remove">Remove</span>
+                    </label>
+                    @endforeach
+                </div>
+                @endif
+
+                <div class="admin-gallery-grid" data-gallery-preview hidden></div>
+
+                <div class="admin-file-input">
+                    <input
+                        type="file"
+                        id="project-gallery-images"
+                        class="admin-file-input-native"
+                        name="images[]"
+                        accept="image/*"
+                        multiple
+                        data-multi-image-input
+                    >
+                    <label for="project-gallery-images" class="admin-file-input-trigger">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>Choose images</span>
+                    </label>
+                    <span class="admin-file-input-name" data-multi-image-filename>No files chosen</span>
+                </div>
+                <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 570×700px or larger JPG/PNG. You can select multiple files at once.</p>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group">

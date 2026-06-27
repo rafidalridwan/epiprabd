@@ -20,7 +20,7 @@ class ProjectController extends Controller
 
     public function show(string $slug)
     {
-        $project = Project::with('category')
+        $project = Project::with('category', 'images')
             ->where('slug', $slug)
             ->where('is_published', true)
             ->firstOrFail();

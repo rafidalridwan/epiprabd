@@ -6,7 +6,7 @@
 @include('partials.banner', [
     'bannerTitle' => 'Join our team — explore career opportunities',
     'bannerImage' => 'images/background/bg-11.jpg',
-    'breadcrumb' => 'Job Circular',
+    'breadcrumb' => 'Career',
 ])
 
 <div class="section-full p-t80 p-b50">

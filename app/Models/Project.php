@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Project extends Model
 {
@@ -25,6 +27,26 @@ class Project extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProjectCategory::class, 'project_category_id');
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProjectImage::class)->orderBy('sort_order');
+    }
+
+    public function sliderImages(): Collection
+    {
+        $galleryImages = $this->images->pluck('image')->filter();
+
+        if ($galleryImages->isNotEmpty()) {
+            return $galleryImages;
+        }
+
+        if ($this->image) {
+            return collect([$this->image]);
+        }
+
+        return collect();
     }
 
     public function getCategoryClassAttribute(): string

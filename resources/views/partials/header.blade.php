@@ -26,6 +26,9 @@
                         <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">Projects</a>
                         </li>
+                        <li class="{{ request()->routeIs('career.*') || request()->routeIs('jobs.*') ? 'active' : '' }}">
+                            <a href="{{ route('career.index') }}">Career</a>
+                        </li>
                         <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                             <a href="{{ route('contact') }}">Contact Us</a>
                         </li>

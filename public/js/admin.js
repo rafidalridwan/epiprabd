@@ -111,4 +111,73 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+
+    document.querySelectorAll('[data-multi-image-upload]').forEach(function (wrap) {
+        const input = wrap.querySelector('[data-multi-image-input]');
+        const previewGrid = wrap.querySelector('[data-gallery-preview]');
+        const filenameEl = wrap.querySelector('[data-multi-image-filename]');
+        const objectUrls = [];
+
+        if (!input || !previewGrid) {
+            return;
+        }
+
+        function revokeObjectUrls() {
+            while (objectUrls.length) {
+                URL.revokeObjectURL(objectUrls.pop());
+            }
+        }
+
+        function clearPreview() {
+            revokeObjectUrls();
+            previewGrid.innerHTML = '';
+            previewGrid.hidden = true;
+
+            if (filenameEl) {
+                filenameEl.textContent = 'No files chosen';
+                filenameEl.classList.remove('is-selected');
+            }
+        }
+
+        input.addEventListener('change', function () {
+            const files = Array.from(input.files || []).filter(function (file) {
+                return file.type.startsWith('image/');
+            });
+
+            clearPreview();
+
+            if (!files.length) {
+                input.value = '';
+                return;
+            }
+
+            files.forEach(function (file) {
+                const objectUrl = URL.createObjectURL(file);
+                objectUrls.push(objectUrl);
+
+                const item = document.createElement('div');
+                item.className = 'admin-gallery-item admin-gallery-item--preview';
+
+                const frame = document.createElement('span');
+                frame.className = 'admin-gallery-item-frame';
+
+                const img = document.createElement('img');
+                img.src = objectUrl;
+                img.alt = file.name;
+
+                frame.appendChild(img);
+                item.appendChild(frame);
+                previewGrid.appendChild(item);
+            });
+
+            previewGrid.hidden = false;
+
+            if (filenameEl) {
+                filenameEl.textContent = files.length === 1
+                    ? files[0].name
+                    : files.length + ' files selected';
+                filenameEl.classList.add('is-selected');
+            }
+        });
+    });
 });

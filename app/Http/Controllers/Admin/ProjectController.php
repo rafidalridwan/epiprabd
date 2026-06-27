@@ -39,7 +39,8 @@ class ProjectController extends Controller
             $validated['banner_image'] = store_public_upload($request->file('banner_image'), 'uploads/projects');
         }
 
-        Project::create($validated);
+        $project = Project::create($validated);
+        $this->storeGalleryImages($project, $request);
 
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
     }
@@ -47,7 +48,7 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         return view('admin.projects.form', [
-            'project' => $project,
+            'project' => $project->load('images'),
             'categories' => ProjectCategory::orderBy('sort_order')->get(),
         ]);
     }
@@ -70,6 +71,8 @@ class ProjectController extends Controller
         }
 
         $project->update($validated);
+        $this->removeGalleryImages($project, $request);
+        $this->storeGalleryImages($project, $request);
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
     }
@@ -95,7 +98,38 @@ class ProjectController extends Controller
             'sort_order' => 'nullable|integer',
             'image' => 'nullable|image|max:4096',
             'banner_image' => 'nullable|image|max:4096',
+            'images' => 'nullable|array',
+            'images.*' => 'image|max:4096',
+            'remove_images' => 'nullable|array',
+            'remove_images.*' => 'integer|exists:project_images,id',
         ]);
+    }
+
+    private function storeGalleryImages(Project $project, Request $request): void
+    {
+        if (! $request->hasFile('images')) {
+            return;
+        }
+
+        $sortOrder = (int) $project->images()->max('sort_order');
+
+        foreach ($request->file('images') as $file) {
+            $project->images()->create([
+                'image' => store_public_upload($file, 'uploads/projects'),
+                'sort_order' => ++$sortOrder,
+            ]);
+        }
+    }
+
+    private function removeGalleryImages(Project $project, Request $request): void
+    {
+        $removeIds = $request->input('remove_images', []);
+
+        if (empty($removeIds)) {
+            return;
+        }
+
+        $project->images()->whereIn('id', $removeIds)->delete();
     }
 
     private function uniqueSlug(string $title): string
