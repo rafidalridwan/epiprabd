@@ -1,0 +1,117 @@
+/* Site logo loader */
+.loading-area {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.loading-box {
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    position: absolute;
+    inset: 0;
+    opacity: 1;
+    z-index: 1;
+}
+
+.loading-pic {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 2;
+    text-align: center;
+    transform: translateY(-50%);
+    padding: 0 1.5rem;
+}
+
+.site-loader {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: site-loader-fade-in 0.35s ease both;
+}
+
+.site-loader__logo {
+    display: block;
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    animation: site-loader-pulse 1.1s ease-in-out infinite;
+}
+
+.site-loader__logo--fallback {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+}
+
+.loading-area.is-leaving {
+    pointer-events: none;
+}
+
+.loading-area.is-leaving .loading-box {
+    animation: site-loader-overlay-out 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.loading-area.is-leaving .site-loader {
+    animation: site-loader-content-out 0.4s ease forwards;
+}
+
+@keyframes site-loader-pulse {
+    0%, 100% {
+        opacity: 0.88;
+        transform: scale(0.97);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes site-loader-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes site-loader-overlay-out {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes site-loader-content-out {
+    to {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-loader__logo {
+        animation: none;
+    }
+
+    .loading-area.is-leaving .loading-box,
+    .loading-area.is-leaving .site-loader {
+        animation: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .site-loader__logo {
+        max-width: 140px;
+    }
+}

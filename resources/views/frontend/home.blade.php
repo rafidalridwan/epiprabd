@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('plugins/revolution/revolution/css/settings.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/revolution/revolution/css/navigation.css') }}">
 <link rel="stylesheet" href="{{ asset('css/rev-slider-4.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-slider-responsive.css') }}">
 @endpush
 
 @section('content')
@@ -117,54 +118,7 @@
 
 
 
-@if($featuredMember)
-<div class="section-full bg-gray square_shape3">
-    <div class="container-fluid">
-        <div class="section-content">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 bg-repeat" style="background-image:url({{ asset('images/background/ptn-1.png') }});">
-                    <div class="wt-left-part2 m-experts p-tb90">
-                        <div class="section-head text-left text-black">
-                            <h2 class="text-uppercase font-36">Our experts</h2>
-                            <div class="wt-separator-outer">
-                                <div class="wt-separator bg-black"></div>
-                            </div>
-                        </div>
-                        <div class="wt-team-six large-pic">
-                            <div class="wt-team-media wt-thum-bx">
-                                <img src="{{ media_url($featuredMember->image) }}" alt="{{ $featuredMember->name }}">
-                            </div>
-                            <div class="wt-team-info text-center p-lr10 p-tb20 bg-white">
-                                <h2 class="wt-team-title text-uppercase text-black font-32 font-weight-500">{{ $featuredMember->name }}</h2>
-                                <p class="font-22">{{ $featuredMember->position }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="wt-right-part2 team-outer">
-                        <div class="row">
-                            @foreach($teamMembers->where('id', '!=', $featuredMember->id)->take(4) as $member)
-                            <div class="col-md-6 col-sm-6 m-tb15">
-                                <div class="wt-team-six bg-white">
-                                    <div class="wt-team-media wt-thum-bx wt-img-overlay1">
-                                        <img src="{{ media_url($member->image) }}" alt="{{ $member->name }}">
-                                    </div>
-                                    <div class="wt-team-info text-center bg-white p-lr10 p-tb20">
-                                        <h5 class="wt-team-title text-uppercase m-a0">{{ $member->name }}</h5>
-                                        <p class="m-b0">{{ $member->position }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+
 
 <!-- COMPANY DETAIL SECTION START -->
 <div class="section-full p-t80 p-b50 overlay-wraper bg-top-center bg-parallax" data-stellar-background-ratio="0.5" style="background-image:url({{ asset($page->facts_bg_image ?? 'images/background/bg-11.jpg') }});">

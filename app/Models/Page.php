@@ -13,7 +13,10 @@ class Page extends Model
         'who_subtitle', 'who_heading', 'who_content',
         'who_badge_strong', 'who_badge_span',
         'facts_subtitle', 'facts_heading', 'facts_content',
-        'facts_bg_image', 'facts_stats', 'is_published',
+        'facts_bg_image', 'facts_stats',
+        'about_gallery_images', 'about_button_text', 'about_button_link',
+        'experts_heading', 'experts_bg_image', 'show_experts_section',
+        'is_published',
     ];
 
     protected function casts(): array
@@ -21,6 +24,8 @@ class Page extends Model
         return [
             'is_published' => 'boolean',
             'facts_stats' => 'array',
+            'about_gallery_images' => 'array',
+            'show_experts_section' => 'boolean',
         ];
     }
 }

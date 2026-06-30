@@ -47,11 +47,11 @@
                 style="z-index: 8; width: 100%;">
 
                 @if($subtitle)
-                <div class="tp-caption tp-resizeme"
+                <div class="tp-caption tp-resizeme slider-caption-text"
                     id="slide-{{ $slideId }}-layer-3"
                     data-x="['left','center','center','center']" data-hoffset="['0','0','0','0']"
                     data-y="['top','bottom','bottom','bottom']" data-voffset="['0','260','250','190']"
-                    data-width="none" data-height="none" data-whitespace="['normal','nowrap','nowrap','nowrap']"
+                    data-width="['none','none','none','none']" data-height="none" data-whitespace="['nowrap','nowrap','nowrap','nowrap']"
                     data-type="text" data-basealign="slide" data-responsive_offset="off"
                     data-frames='[{"delay":"+490","speed":750,"sfxcolor":"#fff","sfx_effect":"blockfromleft","frame":"0","from":"z:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
                     data-margintop="[0,0,0,0]" data-marginright="[0,0,0,0]" data-marginbottom="[0,0,0,0]" data-marginleft="[0,0,0,0]"
@@ -76,12 +76,12 @@
                 </div>
 
                 @if($title)
-                <div class="tp-caption tp-resizeme tp-linkmod"
+                <div class="tp-caption tp-resizeme tp-linkmod slider-caption-text"
                     id="slide-{{ $slideId }}-layer-5"
                     data-x="['left','center','center','center']" data-hoffset="['0','0','0','0']"
                     data-y="['top','bottom','bottom','bottom']" data-voffset="['0','170','140','120']"
                     data-fontsize="['60','60','60','40']" data-lineheight="['60','60','60','40']"
-                    data-width="['900','700','100%','100%']" data-height="none" data-whitespace="normal"
+                    data-width="['none','none','100%','100%']" data-height="none" data-whitespace="['nowrap','normal','normal','normal']"
                     data-type="text" data-actions='' data-basealign="slide" data-responsive_offset="off"
                     data-frames='[{"delay":"+590","speed":750,"sfxcolor":"#fff","sfx_effect":"blockfromleft","frame":"0","from":"z:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"0","ease":"Linear.easeNone","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgb(255,255,255);"}]'
                     data-margintop="[0,0,0,0]" data-marginright="[0,0,0,0]" data-marginbottom="[0,0,0,0]" data-marginleft="[0,0,0,0]"
@@ -106,11 +106,11 @@
                 </div>
 
                 @if($description)
-                <div class="tp-caption tp-resizeme"
+                <div class="tp-caption tp-resizeme slider-caption-text slider-caption-text--wrap"
                     id="slide-{{ $slideId }}-layer-7"
                     data-x="['left','center','center','center']" data-hoffset="['0','0','0','0']"
                     data-y="['top','bottom','bottom','bottom']" data-voffset="['0','100','80','70']"
-                    data-width="['none','460','100%','100%']" data-height="none" data-whitespace="normal"
+                    data-width="['none','none','100%','100%']" data-height="none" data-whitespace="['normal','normal','normal','normal']"
                     data-type="text" data-basealign="slide" data-responsive_offset="off"
                     data-frames='[{"delay":"+690","speed":750,"sfxcolor":"#fff","sfx_effect":"blockfromleft","frame":"0","from":"z:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
                     data-margintop="[0,0,0,0]" data-marginright="[0,0,0,0]" data-marginbottom="[0,0,0,0]" data-marginleft="[0,0,0,0]"
@@ -134,6 +134,6 @@
         data-frames='[{"delay":50,"speed":100,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"frame":"999","to":"opacity:0;","ease":"Power3.easeIn"}]'
         data-textAlign="['inherit','inherit','inherit','inherit']"
         data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]"
-        style="z-index: 5;background-color:rgba(0, 0, 0, 0);border-color:rgb(255,255,255);border-style:solid;border-width:0px 80px 80px 80px;">
+        style="z-index: 5;background-color:rgba(0, 0, 0, 0);border-color:rgb(255,255,255);border-style:solid;border-width:0px;">
     </div>
 </li>

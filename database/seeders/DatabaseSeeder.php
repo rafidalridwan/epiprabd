@@ -30,11 +30,13 @@ class DatabaseSeeder extends Seeder
         );
 
         $settings = [
-            'site_name' => 'Modern Template',
-            'site_email' => 'Moderninfo@gmail.com',
-            'site_phone' => '(456) 789 10 12',
-            'site_address' => '55/11 Land Street, Modern New York City, USA',
-            'footer_text' => '© 2023 Your Company. Designed By thememajestic.',
+            'site_name' => 'Pipra',
+            'site_email' => 'epipra.bd@gmail.com',
+            'site_phone' => '01601-041123',
+            'site_address' => 'Shop No-81, 82, Station Road, Railway Market, Puran Bogra, Bangladesh',
+            'footer_text' => 'Copyright © 2024 Pipra',
+            'footer_services' => "Architecture|#\n3D Animation|#\nHouse Planning|#\nInterior Design|#\nConstruction|#",
+            'footer_quick_links' => "About Us|/about\nContact Us|/contact\nOur Services|/projects\nTerms & Condition|#\nSupport|/contact",
             'map_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.010148022944!2d-0.13445098404809602!3d51.51302981811226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604d31cdfefbb%3A0x27d5339f1859d7f1!2s62%20Dean%20St%2C%20London%20W1D%204QF%2C%20UK!5e0!3m2!1sen!2sin!4v1666266891426!5m2!1sen!2sin',
             'facebook' => '#',
             'twitter' => '#',
@@ -83,6 +85,18 @@ class DatabaseSeeder extends Seeder
             'subtitle' => 'About Us',
             'heading' => 'Our mission is the best interior design & development.',
             'content' => '<p><b>Dummy text is also used to demonstrate the appearance of different typefaces and layouts, and in general</b></p><p class="text-lowercase">typefaces and layouts, and in appearance of different general the content of dummy text is nonsensical.</p>',
+            'about_gallery_images' => [
+                'images/gallery/portrait/pic2.jpg',
+                'images/gallery/portrait/pic3.jpg',
+                'images/gallery/portrait/pic4.jpg',
+                'images/gallery/portrait/pic5.jpg',
+                'images/gallery/portrait/pic6.jpg',
+            ],
+            'about_button_text' => 'Contact Us',
+            'about_button_link' => '/contact',
+            'experts_heading' => 'Our experts',
+            'experts_bg_image' => 'images/background/ptn-1.png',
+            'show_experts_section' => true,
             'is_published' => true,
         ]);
 

@@ -19,7 +19,8 @@ class SettingController extends Controller
     {
         $fields = [
             'site_name', 'site_email', 'site_phone', 'site_address',
-            'footer_text', 'map_embed', 'meta_keywords', 'og_title', 'og_description',
+            'footer_text', 'footer_services', 'footer_quick_links',
+            'map_embed', 'meta_keywords', 'og_title', 'og_description',
             'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'rss',
         ];
 
@@ -31,6 +32,17 @@ class SettingController extends Controller
 
         if ($request->hasFile('logo')) {
             Setting::setValue('logo', store_public_upload($request->file('logo'), 'uploads/settings'));
+        }
+
+        if ($request->hasFile('favicon')) {
+            $request->validate([
+                'favicon' => 'file|mimes:png,jpg,jpeg,svg,ico|max:512',
+            ]);
+            Setting::setValue('favicon', store_public_upload($request->file('favicon'), 'uploads/settings'));
+        }
+
+        if ($request->hasFile('footer_logo')) {
+            Setting::setValue('footer_logo', store_public_upload($request->file('footer_logo'), 'uploads/settings'));
         }
 
         if ($request->hasFile('og_image')) {

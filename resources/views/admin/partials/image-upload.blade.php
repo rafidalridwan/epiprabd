@@ -7,6 +7,7 @@
     $required = $required ?? false;
     $optionalHint = $optionalHint ?? null;
     $fallback = $fallback ?? 'images/logo-dark.png';
+    $accept = $accept ?? 'image/*';
     $previewUrl = $currentPath ? media_url($currentPath, $fallback) : null;
 @endphp
 
@@ -45,7 +46,7 @@
             id="{{ $inputId }}"
             class="admin-file-input-native"
             name="{{ $inputName }}"
-            accept="image/*"
+            accept="{{ $accept }}"
             data-image-input
             {{ $required ? 'required' : '' }}
         >

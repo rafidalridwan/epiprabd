@@ -28,7 +28,7 @@ tpj(document).ready(function() {
 				,
 				arrows: {
 					style:"new-bullet-bar",
-					enable:true,
+					enable:false,
 					hide_onmobile:true,
 					hide_under:778,
 					hide_onleave:false,
@@ -68,10 +68,10 @@ tpj(document).ready(function() {
 				visible_area:"80%",
 				presize:true
 			},
-			responsiveLevels:[1240,1024,778,480],
-			visibilityLevels:[1240,1024,778,480],
-			gridwidth:[1240,1024,778,480],
-			gridheight:[840,700,700,700],
+			responsiveLevels:[1920,1440,1024,778,480],
+			visibilityLevels:[1920,1440,1024,778,480],
+			gridwidth:[1920,1600,1366,1024,480],
+			gridheight:[960,900,820,760,700],
 			lazyType:"single",
 			parallax: {
 				type:"scroll",
@@ -86,8 +86,8 @@ tpj(document).ready(function() {
 			stopAtSlide:-1,
 			shuffle:"off",
 			autoHeight:"off",
-			fullScreenAutoWidth:"off",
-			fullScreenAlignForce:"off",
+			fullScreenAutoWidth:"on",
+			fullScreenAlignForce:"on",
 			fullScreenOffsetContainer: ".site-header",
 			fullScreenOffset: "",
 			disableProgressBar:"on",
@@ -104,5 +104,31 @@ tpj(document).ready(function() {
 		});
 	}
 	try{initSocialSharing("318")} catch(e){}
+
+	function syncSliderCaptionWidths() {
+		if (window.innerWidth < 1440) {
+			tpj('#welcome_wrapper .slider-caption-text').css('width', '');
+			return;
+		}
+
+		tpj('#welcome_wrapper .slider-caption-text').each(function () {
+			var el = this;
+			el.style.width = 'auto';
+			var width = Math.ceil(el.scrollWidth);
+			if (width > 0) {
+				el.style.width = width + 'px';
+			}
+		});
+	}
+
+	if (typeof revapi318 !== 'undefined' && revapi318) {
+		revapi318.bind('revolution.slide.onloaded', syncSliderCaptionWidths);
+		revapi318.bind('revolution.slide.onafterswap', syncSliderCaptionWidths);
+		tpj(window).on('resize', function () {
+			clearTimeout(window.__sliderCaptionResizeTimer);
+			window.__sliderCaptionResizeTimer = setTimeout(syncSliderCaptionWidths, 150);
+		});
+		setTimeout(syncSliderCaptionWidths, 400);
+	}
 });
 /*ready*/

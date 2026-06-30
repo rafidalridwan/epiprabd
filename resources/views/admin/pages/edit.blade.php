@@ -91,6 +91,73 @@
             </div>
             @endif
 
+            @if($page->slug === 'about')
+            <div class="admin-form-section">
+                <h3><i class="fa fa-image" style="color:var(--admin-primary);"></i> Gallery Carousel</h3>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Images shown in the left-side carousel on the About page.</p>
+
+                @php $galleryImages = collect($page->about_gallery_images ?? []); @endphp
+                @if($galleryImages->isNotEmpty())
+                <div class="admin-gallery-grid" data-gallery-existing>
+                    @foreach($galleryImages as $galleryImage)
+                    <label class="admin-gallery-item">
+                        <input type="checkbox" name="remove_about_gallery[]" value="{{ $galleryImage }}">
+                        <span class="admin-gallery-item-frame">
+                            <img src="{{ media_url($galleryImage, 'images/gallery/portrait/pic2.jpg') }}" alt="Gallery image">
+                        </span>
+                        <span class="admin-gallery-item-remove">Remove</span>
+                    </label>
+                    @endforeach
+                </div>
+                @endif
+
+                <div class="admin-form-group admin-multi-image-upload" data-multi-image-upload>
+                    <div class="admin-gallery-grid" data-gallery-preview hidden></div>
+                    <div class="admin-file-input">
+                        <input
+                            type="file"
+                            id="about-gallery-images"
+                            class="admin-file-input-native"
+                            name="about_gallery_images[]"
+                            accept="image/*"
+                            multiple
+                            data-multi-image-input
+                        >
+                        <label for="about-gallery-images" class="admin-file-input-trigger">
+                            <i class="fa fa-cloud-upload"></i>
+                            <span>Choose images</span>
+                        </label>
+                        <span class="admin-file-input-name" data-multi-image-filename>No files chosen</span>
+                    </div>
+                    <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 570×700px portrait JPG or PNG. You can select multiple files at once.</p>
+                </div>
+            </div>
+
+            <div class="admin-form-section">
+                <h3><i class="fa fa-hand-pointer-o" style="color:var(--admin-primary);"></i> Call to Action Button</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div class="admin-form-group"><label>Button Text</label><input class="admin-form-control" name="about_button_text" value="{{ old('about_button_text', $page->about_button_text) }}" placeholder="Contact Us"></div>
+                    <div class="admin-form-group"><label>Button Link</label><input class="admin-form-control" name="about_button_link" value="{{ old('about_button_link', $page->about_button_link) }}" placeholder="/contact"></div>
+                </div>
+            </div>
+
+            <div class="admin-form-section">
+                <h3><i class="fa fa-users" style="color:var(--admin-primary);"></i> Our Experts Section</h3>
+                <div class="admin-form-group">
+                    <label class="admin-form-check"><input type="checkbox" name="show_experts_section" value="1" {{ old('show_experts_section', $page->show_experts_section ?? true) ? 'checked' : '' }}> Show experts section</label>
+                </div>
+                <div class="admin-form-group"><label>Section Heading</label><input class="admin-form-control" name="experts_heading" value="{{ old('experts_heading', $page->experts_heading) }}" placeholder="Our experts"></div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'experts_bg_image',
+                    'label' => 'Experts Panel Background',
+                    'current' => $page->experts_bg_image,
+                    'sizeTip' => 'Recommended: seamless pattern PNG for the left experts panel background.',
+                    'fallback' => 'images/background/ptn-1.png',
+                ])
+                <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Team member photos and details are managed under <strong>Team</strong> in the admin sidebar.</p>
+            </div>
+            @endif
+
             <div class="admin-form-group">
                 <label class="admin-form-check"><input type="checkbox" name="is_published" value="1" {{ $page->is_published ? 'checked' : '' }}> Published</label>
             </div>

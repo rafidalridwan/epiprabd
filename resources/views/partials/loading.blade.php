@@ -1,8 +1,15 @@
-<div class="loading-area">
+@php
+    $loaderLogo = setting('footer_logo') ?: setting('logo');
+@endphp
+<div class="loading-area" id="site-loader">
     <div class="loading-box"></div>
     <div class="loading-pic">
-        <svg id="triangle" width="140px" height="140px" viewBox="-3 -4 39 39">
-            <polygon fill="#fff" stroke="#000" stroke-width="2" points="16,0 32,32 0,32"></polygon>
-        </svg>
+        <div class="site-loader" aria-hidden="true">
+            <img
+                src="{{ media_url($loaderLogo, 'images/logo-dark.png') }}"
+                alt="{{ setting('site_name', 'Loading') }}"
+                class="site-loader__logo{{ $loaderLogo ? '' : ' site-loader__logo--fallback' }}"
+            >
+        </div>
     </div>
 </div>

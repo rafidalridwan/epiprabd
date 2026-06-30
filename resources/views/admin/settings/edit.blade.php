@@ -28,6 +28,22 @@
                 'sizeTip' => 'Recommended: 340×98px PNG or SVG with transparent background.',
                 'fallback' => 'images/logo-dark.png',
             ])
+            @include('admin.partials.image-upload', [
+                'name' => 'favicon',
+                'label' => 'Site Favicon',
+                'current' => $settings['favicon'] ?? null,
+                'accept' => '.ico,.png,.jpg,.jpeg,.svg,image/x-icon,image/png,image/jpeg,image/svg+xml',
+                'sizeTip' => 'Recommended: 32×32px or 64×64px ICO or PNG. Shown in browser tabs.',
+                'fallback' => 'images/favicon.ico',
+            ])
+            @include('admin.partials.image-upload', [
+                'name' => 'footer_logo',
+                'label' => 'Footer Logo (optional)',
+                'current' => $settings['footer_logo'] ?? null,
+                'optionalHint' => '(light/white version for dark footer)',
+                'sizeTip' => 'Recommended: white or light logo for the dark footer background.',
+                'fallback' => 'images/logo-dark.png',
+            ])
 
             <div class="admin-form-section">
                 <h3><i class="fa fa-phone" style="color:var(--admin-primary);"></i> Contact Information</h3>
@@ -44,13 +60,27 @@
                     <textarea class="admin-form-control" name="site_address" rows="2">{{ $settings['site_address'] ?? '' }}</textarea>
                 </div>
                 <div class="admin-form-group">
-                    <label>Footer Text</label>
-                    <input class="admin-form-control" name="footer_text" value="{{ $settings['footer_text'] ?? '' }}">
+                    <label>Footer Copyright Text</label>
+                    <input class="admin-form-control" name="footer_text" value="{{ $settings['footer_text'] ?? '' }}" placeholder="Copyright © {{ date('Y') }} Your Company">
                 </div>
                 <div class="admin-form-group">
                     <label>Google Map Embed URL</label>
                     <input class="admin-form-control" name="map_embed" value="{{ $settings['map_embed'] ?? '' }}">
                     <p class="admin-form-hint">Paste the iframe src URL from Google Maps embed.</p>
+                </div>
+            </div>
+
+            <div class="admin-form-section">
+                <h3><i class="fa fa-link" style="color:var(--admin-primary);"></i> Footer Menus</h3>
+                <div class="admin-form-group">
+                    <label>Services Links</label>
+                    <textarea class="admin-form-control" name="footer_services" rows="6" placeholder="Architecture|/projects&#10;3D Animation|#">{{ $settings['footer_services'] ?? '' }}</textarea>
+                    <p class="admin-form-hint">One link per line. Format: <code>Label|URL</code></p>
+                </div>
+                <div class="admin-form-group">
+                    <label>Quick Links</label>
+                    <textarea class="admin-form-control" name="footer_quick_links" rows="6" placeholder="About Us|/about&#10;Contact Us|/contact">{{ $settings['footer_quick_links'] ?? '' }}</textarea>
+                    <p class="admin-form-hint">One link per line. Format: <code>Label|URL</code></p>
                 </div>
             </div>
 
