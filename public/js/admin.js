@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 objectUrls.push(objectUrl);
 
                 const item = document.createElement('div');
-                item.className = 'admin-gallery-item admin-gallery-item--preview';
+                item.className = 'admin-gallery-item admin-gallery-item--preview admin-gallery-item--editable';
 
                 const frame = document.createElement('span');
                 frame.className = 'admin-gallery-item-frame';
@@ -165,8 +165,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.src = objectUrl;
                 img.alt = file.name;
 
+                const videoLabel = document.createElement('label');
+                videoLabel.className = 'admin-gallery-item-video-label';
+                videoLabel.textContent = 'YouTube link';
+
+                const videoInput = document.createElement('input');
+                videoInput.type = 'text';
+                videoInput.name = 'new_video_urls[]';
+                videoInput.className = 'admin-form-control admin-gallery-item-video-input';
+                videoInput.placeholder = 'https://youtube.com/watch?v=...';
+
                 frame.appendChild(img);
                 item.appendChild(frame);
+                item.appendChild(videoLabel);
+                item.appendChild(videoInput);
                 previewGrid.appendChild(item);
             });
 

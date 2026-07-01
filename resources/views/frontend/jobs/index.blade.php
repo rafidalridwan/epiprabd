@@ -1,11 +1,11 @@
 @extends('layouts.frontend')
 
-@section('title', 'Career | ' . setting('site_name'))
+@section('title', ($page->meta_title ?? 'Career') . ' | ' . setting('site_name'))
 
 @section('content')
 @include('partials.banner', [
-    'bannerTitle' => 'Join our team — explore career opportunities',
-    'bannerImage' => 'images/background/bg-11.jpg',
+    'bannerTitle' => $page->banner_title ?? 'Join our team — explore career opportunities',
+    'bannerImage' => $page->banner_image ?? 'images/background/bg-11.jpg',
     'breadcrumb' => 'Career',
 ])
 

@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="{{ asset('plugins/revolution/revolution/css/navigation.css') }}">
 <link rel="stylesheet" href="{{ asset('css/rev-slider-4.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home-slider-responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/rev-glass-break.css') }}">
+<link rel="stylesheet" href="{{ asset('css/clients-section.css') }}">
 @endpush
 
 @section('content')
@@ -208,46 +210,36 @@
 <!-- TESTIMONIALS SECTION END -->
 <!-- CLIENT LOGO SECTION START -->
 @if($clients->count())
-<div class="section-full p-tb40 bg-black square_shape4">
+<section class="clients-section">
+    <div class="clients-section__bg" aria-hidden="true"></div>
     <div class="container">
-        <div class="section-content">
-            <div class="section-content">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="section-head text-left">
-                            <h2 class="text-uppercase font-36 text-white">Our Clients</h2>
-                            <div class="wt-separator-outer">
-                                <div class="wt-separator bg-white"></div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="clients-section__header">
+            <span class="clients-section__label">Trusted Partners</span>
+            <h2 class="clients-section__title">Our Clients</h2>
+            <p class="clients-section__subtitle">Brands and organizations we've partnered with to deliver exceptional results.</p>
+        </div>
 
-                    <div class="col-lg-8 col-md-12">
-                        <div class="section-content bg-white p-tb10">
-                            <div class="owl-carousel home-client-carousel owl-btn-center-v">
-                                @foreach($clients as $client)
-                                <div class="item">
-                                    <div class="ow-client-logo">
-                                        <div class="client-logo client-logo-media">
-                                            @if($client->url)
-                                            <a href="{{ $client->url }}" target="_blank" rel="noopener"><img src="{{ media_url($client->logo) }}" alt="{{ $client->name ?? 'Client' }}"></a>
-                                            @else
-                                            <img src="{{ media_url($client->logo) }}" alt="{{ $client->name ?? 'Client' }}">
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
+        <div class="clients-section__carousel">
+            <div class="owl-carousel home-client-carousel owl-btn-vertical-center">
+                @foreach($clients as $client)
+                <div class="item">
+                    <div class="clients-section__card">
+                        @if($client->url)
+                        <a href="{{ $client->url }}" target="_blank" rel="noopener noreferrer" title="{{ $client->name ?? 'Client' }}">
+                            <img src="{{ media_url($client->logo) }}" alt="{{ $client->name ?? 'Client' }}">
+                        </a>
+                        @else
+                        <img src="{{ media_url($client->logo) }}" alt="{{ $client->name ?? 'Client' }}">
+                        @endif
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
-</div>
+</section>
 @endif
-<!-- CLIENT LOGO  SECTION End -->
+<!-- CLIENT LOGO SECTION End -->
 @endsection
 
 @push('scripts')
@@ -255,6 +247,7 @@
 <script src="{{ asset('plugins/revolution/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
 <script src="{{ asset('plugins/revolution/revolution/js/extensions/revolution-plugin.js') }}"></script>
 <script src="{{ asset('js/rev-script-1.js') }}"></script>
+<script src="{{ asset('js/rev-glass-break.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('.latest_project-carousel').owlCarousel({

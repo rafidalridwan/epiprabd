@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 
@@ -14,8 +15,9 @@ class ProjectController extends Controller
             ->where('is_published', true)
             ->orderBy('sort_order')
             ->get();
+        $page = Page::where('slug', 'projects')->where('is_published', true)->first();
 
-        return view('frontend.projects.index', compact('categories', 'projects'));
+        return view('frontend.projects.index', compact('categories', 'projects', 'page'));
     }
 
     public function show(string $slug)

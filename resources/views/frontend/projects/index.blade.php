@@ -1,11 +1,11 @@
 @extends('layouts.frontend')
 
-@section('title', 'Projects | ' . setting('site_name'))
+@section('title', ($page->meta_title ?? 'Projects') . ' | ' . setting('site_name'))
 
 @section('content')
 @include('partials.banner', [
-    'bannerTitle' => 'Creating places that enhance the human experience.',
-    'bannerImage' => 'images/background/bg-11.jpg',
+    'bannerTitle' => $page->banner_title ?? 'Creating places that enhance the human experience.',
+    'bannerImage' => $page->banner_image ?? 'images/background/bg-11.jpg',
     'breadcrumb' => 'Projects',
 ])
 

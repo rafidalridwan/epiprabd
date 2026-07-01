@@ -7,7 +7,7 @@
 <div class="admin-page-header">
     <div>
         <h1>Edit: {{ $page->title }}</h1>
-        <p>Update page content, banner, and SEO settings.</p>
+        <p>{{ $page->isBannerOnly() ? 'Update the banner background image and title.' : 'Update page content, banner, and SEO settings.' }}</p>
     </div>
     <a href="{{ route('admin.pages.index') }}" class="admin-btn admin-btn-secondary"><i class="fa fa-arrow-left"></i> Back</a>
 </div>
@@ -16,6 +16,23 @@
     <div class="admin-card-body">
         <form method="POST" action="{{ route('admin.pages.update', $page) }}" enctype="multipart/form-data">
             @csrf @method('PUT')
+
+            @if($page->isBannerOnly())
+            <div class="admin-form-section">
+                <h3><i class="fa fa-picture-o" style="color:var(--admin-primary);"></i> Banner Section</h3>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:1rem;">Update the page banner background image and title shown at the top of the {{ strtolower($page->title) }} page.</p>
+                <div class="admin-form-group"><label>Page Name</label><input class="admin-form-control" name="title" value="{{ old('title', $page->title) }}" required></div>
+                <div class="admin-form-group"><label>Banner Title</label><input class="admin-form-control" name="banner_title" value="{{ old('banner_title', $page->banner_title) }}" placeholder="Title shown on the banner"></div>
+                @include('admin.partials.image-upload', [
+                    'name' => 'banner_image',
+                    'label' => 'Banner Background Image',
+                    'current' => $page->banner_image,
+                    'sizeTip' => 'Recommended: 1920×600px JPG or PNG for full-width page banners.',
+                    'fallback' => 'images/background/bg-11.jpg',
+                ])
+                <div class="admin-form-group"><label>Meta Title</label><input class="admin-form-control" name="meta_title" value="{{ old('meta_title', $page->meta_title) }}" placeholder="Browser tab title (optional)"></div>
+            </div>
+            @else
             <div class="admin-form-group"><label>Title</label><input class="admin-form-control" name="title" value="{{ old('title', $page->title) }}" required></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group"><label>Meta Title</label><input class="admin-form-control" name="meta_title" value="{{ old('meta_title', $page->meta_title) }}"></div>
@@ -156,6 +173,8 @@
                 ])
                 <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Team member photos and details are managed under <strong>Team</strong> in the admin sidebar.</p>
             </div>
+            @endif
+
             @endif
 
             <div class="admin-form-group">

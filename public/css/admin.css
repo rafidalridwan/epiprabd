@@ -1209,7 +1209,7 @@ tbody tr:hover { background: #f8fafc; }
     cursor: pointer;
 }
 
-.admin-gallery-item input {
+.admin-gallery-item input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -1251,4 +1251,67 @@ tbody tr:hover { background: #f8fafc; }
 
 .admin-gallery-item--preview {
     cursor: default;
+}
+
+.admin-gallery-grid--with-video {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.admin-gallery-item--editable {
+    cursor: default;
+}
+
+.admin-gallery-item-remove-label {
+    display: block;
+    cursor: pointer;
+}
+
+.admin-gallery-item-video-label {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--admin-muted);
+}
+
+.admin-gallery-item-video-input {
+    position: static;
+    display: block;
+    width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.45rem 0.55rem;
+    font-size: 0.75rem;
+    opacity: 1;
+    pointer-events: auto;
+    cursor: text;
+}
+
+.admin-gallery-item-video-badge {
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: rgba(220, 38, 38, 0.92);
+    color: #fff;
+    font-size: 0.7rem;
+    pointer-events: none;
+}
+
+.admin-gallery-item-frame {
+    position: relative;
+}
+
+.admin-gallery-item:has(.admin-gallery-item-remove-label input:checked) .admin-gallery-item-frame {
+    border-color: var(--admin-danger);
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+}
+
+.admin-gallery-item:has(.admin-gallery-item-remove-label input:checked) .admin-gallery-item-remove {
+    color: var(--admin-danger);
+    font-weight: 600;
 }

@@ -7,7 +7,7 @@
 <div class="admin-page-header">
     <div>
         <h1>Pages</h1>
-        <p>Edit content for Home, About, and Contact pages.</p>
+        <p>Edit content for Home, About, Contact, Projects, and Career pages.</p>
     </div>
 </div>
 

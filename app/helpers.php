@@ -81,6 +81,42 @@ if (! function_exists('footer_menu_links')) {
     }
 }
 
+if (! function_exists('youtube_video_id')) {
+    function youtube_video_id(?string $url): ?string
+    {
+        if (empty($url)) {
+            return null;
+        }
+
+        $url = trim($url);
+
+        if (! preg_match('~^https?://~i', $url)) {
+            $url = 'https://' . ltrim($url, '/');
+        }
+
+        if (preg_match('/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/', $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+}
+
+if (! function_exists('youtube_embed_url')) {
+    function youtube_embed_url(?string $url, bool $autoplay = true): ?string
+    {
+        $videoId = youtube_video_id($url);
+
+        if (! $videoId) {
+            return null;
+        }
+
+        $params = $autoplay ? '?autoplay=1&rel=0' : '?rel=0';
+
+        return 'https://www.youtube.com/embed/' . $videoId . $params;
+    }
+}
+
 if (! function_exists('setting')) {
     function setting(string $key, ?string $default = null): ?string
     {

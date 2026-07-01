@@ -60,23 +60,37 @@
 
             <div class="admin-form-group admin-multi-image-upload" data-multi-image-upload>
                 <label>Gallery Images (Slider)</label>
-                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Upload multiple images for the auto-playing slider on the project detail page. If none are added, the thumbnail image is used.</p>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Upload multiple images for the auto-playing slider on the project detail page. Optionally attach a YouTube link to any image to show a play icon and open the video in a popup.</p>
 
                 @if($project->exists && $project->images->count())
-                <div class="admin-gallery-grid" data-gallery-existing>
+                <div class="admin-gallery-grid admin-gallery-grid--with-video" data-gallery-existing>
                     @foreach($project->images as $galleryImage)
-                    <label class="admin-gallery-item">
-                        <input type="checkbox" name="remove_images[]" value="{{ $galleryImage->id }}">
-                        <span class="admin-gallery-item-frame">
-                            <img src="{{ media_url($galleryImage->image, 'images/gallery/portrait/pic1.jpg') }}" alt="Gallery image">
-                        </span>
-                        <span class="admin-gallery-item-remove">Remove</span>
-                    </label>
+                    <div class="admin-gallery-item admin-gallery-item--editable">
+                        <label class="admin-gallery-item-remove-label">
+                            <input type="checkbox" name="remove_images[]" value="{{ $galleryImage->id }}">
+                            <span class="admin-gallery-item-frame">
+                                <img src="{{ media_url($galleryImage->image, 'images/gallery/portrait/pic1.jpg') }}" alt="Gallery image">
+                                @if($galleryImage->youtube_url)
+                                <span class="admin-gallery-item-video-badge" title="Video attached"><i class="fa fa-youtube-play"></i></span>
+                                @endif
+                            </span>
+                            <span class="admin-gallery-item-remove">Remove</span>
+                        </label>
+                        <label class="admin-gallery-item-video-label" for="video-url-{{ $galleryImage->id }}">YouTube link</label>
+                        <input
+                            type="text"
+                            id="video-url-{{ $galleryImage->id }}"
+                            class="admin-form-control admin-gallery-item-video-input"
+                            name="video_urls[{{ $galleryImage->id }}]"
+                            value="{{ old('video_urls.' . $galleryImage->id, $galleryImage->youtube_url) }}"
+                            placeholder="https://youtube.com/watch?v=..."
+                        >
+                    </div>
                     @endforeach
                 </div>
                 @endif
 
-                <div class="admin-gallery-grid" data-gallery-preview hidden></div>
+                <div class="admin-gallery-grid admin-gallery-grid--with-video" data-gallery-preview hidden></div>
 
                 <div class="admin-file-input">
                     <input
@@ -94,7 +108,7 @@
                     </label>
                     <span class="admin-file-input-name" data-multi-image-filename>No files chosen</span>
                 </div>
-                <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 570×700px or larger JPG/PNG. You can select multiple files at once.</p>
+                <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 570×700px or larger JPG/PNG. You can select multiple files at once and add a YouTube URL for each new image below its preview.</p>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group">

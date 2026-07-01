@@ -10,6 +10,7 @@ class ProjectImage extends Model
     protected $fillable = [
         'project_id',
         'image',
+        'youtube_url',
         'sort_order',
     ];
 

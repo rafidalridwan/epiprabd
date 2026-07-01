@@ -1,0 +1,19 @@
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: #e31e24 !important;
+    height: 3px !important;
+    z-index: 12000 !important;
+}
+
+#nprogress .peg {
+    box-shadow:
+        0 0 10px #e31e24,
+        0 0 5px #e31e24 !important;
+}
+
+#nprogress .spinner {
+    display: none !important;
+}

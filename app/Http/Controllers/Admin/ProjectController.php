@@ -72,6 +72,7 @@ class ProjectController extends Controller
 
         $project->update($validated);
         $this->removeGalleryImages($project, $request);
+        $this->updateGalleryVideoUrls($project, $request);
         $this->storeGalleryImages($project, $request);
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
@@ -102,7 +103,31 @@ class ProjectController extends Controller
             'images.*' => 'image|max:4096',
             'remove_images' => 'nullable|array',
             'remove_images.*' => 'integer|exists:project_images,id',
+            'video_urls' => 'nullable|array',
+            'video_urls.*' => 'nullable|string|max:500',
+            'new_video_urls' => 'nullable|array',
+            'new_video_urls.*' => 'nullable|string|max:500',
         ]);
+    }
+
+    private function normalizeYoutubeUrl(?string $url): ?string
+    {
+        $url = trim((string) $url);
+
+        if ($url === '') {
+            return null;
+        }
+
+        return youtube_video_id($url) ? $url : null;
+    }
+
+    private function updateGalleryVideoUrls(Project $project, Request $request): void
+    {
+        foreach ($request->input('video_urls', []) as $imageId => $url) {
+            $project->images()->whereKey($imageId)->update([
+                'youtube_url' => $this->normalizeYoutubeUrl($url),
+            ]);
+        }
     }
 
     private function storeGalleryImages(Project $project, Request $request): void
@@ -112,10 +137,12 @@ class ProjectController extends Controller
         }
 
         $sortOrder = (int) $project->images()->max('sort_order');
+        $newVideoUrls = $request->input('new_video_urls', []);
 
-        foreach ($request->file('images') as $file) {
+        foreach ($request->file('images') as $index => $file) {
             $project->images()->create([
                 'image' => store_public_upload($file, 'uploads/projects'),
+                'youtube_url' => $this->normalizeYoutubeUrl($newVideoUrls[$index] ?? null),
                 'sort_order' => ++$sortOrder,
             ]);
         }

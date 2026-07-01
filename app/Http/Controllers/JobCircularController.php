@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobCircular;
+use App\Models\Page;
 
 class JobCircularController extends Controller
 {
@@ -12,8 +13,9 @@ class JobCircularController extends Controller
             ->orderBy('sort_order')
             ->orderByDesc('created_at')
             ->get();
+        $page = Page::where('slug', 'career')->where('is_published', true)->first();
 
-        return view('frontend.jobs.index', compact('jobCirculars'));
+        return view('frontend.jobs.index', compact('jobCirculars', 'page'));
     }
 
     public function show(string $slug)

@@ -36,14 +36,26 @@ class Project extends Model
 
     public function sliderImages(): Collection
     {
-        $galleryImages = $this->images->pluck('image')->filter();
+        return $this->sliderItems()->pluck('image')->filter();
+    }
+
+    public function sliderItems(): Collection
+    {
+        $galleryImages = $this->relationLoaded('images')
+            ? $this->images
+            : $this->images()->get();
 
         if ($galleryImages->isNotEmpty()) {
             return $galleryImages;
         }
 
         if ($this->image) {
-            return collect([$this->image]);
+            return collect([
+                new ProjectImage([
+                    'image' => $this->image,
+                    'youtube_url' => null,
+                ]),
+            ]);
         }
 
         return collect();

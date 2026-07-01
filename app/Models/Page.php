@@ -28,4 +28,9 @@ class Page extends Model
             'show_experts_section' => 'boolean',
         ];
     }
+
+    public function isBannerOnly(): bool
+    {
+        return in_array($this->slug, ['projects', 'career'], true);
+    }
 }

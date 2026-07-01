@@ -25,6 +25,7 @@
 @endphp
 
 <footer class="site-footer-modern">
+    <canvas class="site-footer-modern__particles" id="footer-particles" aria-hidden="true"></canvas>
     <div class="site-footer-modern__main">
         <div class="container">
             <div class="row site-footer-modern__grid">
@@ -83,6 +84,12 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <div class="site-footer-modern__scene" aria-hidden="true">
+            <div class="site-footer-modern__scene-bg"></div>
+            <div class="site-footer-modern__scene-car"></div>
+            <div class="site-footer-modern__scene-cyclist"></div>
         </div>
     </div>
 

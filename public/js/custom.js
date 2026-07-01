@@ -43,7 +43,6 @@ All JavaScript fuctions Start
 	 > equal each box
 	 > text animation function 
 	 > masonry function function by = isotope.pkgd.min.js
-	 > page loader function by = custom.js
  */	
  
 /*--------------------------------------------------------------------------------------------
@@ -441,7 +440,11 @@ All JavaScript fuctions Start
 	function home_client_carousel(){
 	jQuery('.home-client-carousel').owlCarousel({
 		loop:true,
-		margin:10,
+		margin:24,
+		autoplay:true,
+		autoplayTimeout:3500,
+		autoplayHoverPause:true,
+		smartSpeed:650,
 		nav:true,
 		dots: false,
 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
@@ -449,13 +452,13 @@ All JavaScript fuctions Start
 			0:{
 				items:2
 			},
-			480:{
+			576:{
 				items:3
-			},			
-			767:{
+			},
+			768:{
 				items:4
 			},
-			1000:{
+			1200:{
 				items:5
 			}
 		}
@@ -674,31 +677,28 @@ All JavaScript fuctions Start
 	}	
 
 
-// > page loader function by = custom.js ========================= //		
-	function page_loader() {
-		var $loader = $('.loading-area');
-		if (!$loader.length) {
-			return;
-		}
-
-		$loader.addClass('is-leaving');
-		setTimeout(function () {
-			$loader.fadeOut(350);
-		}, 380);
-	};
-
 /*--------------------------------------------------------------------------------------------
     Window on scroll ALL FUNCTION START
 ---------------------------------------------------------------------------------------------*/
 
     function color_fill_header() {
         var scroll = $(window).scrollTop();
-        if(scroll >= 100) {
+        var $headerWrap = $('.site-header--ios .main-bar-wraper');
+
+        if ($headerWrap.length) {
+            if (scroll >= 12) {
+                $headerWrap.addClass('is-header-scrolled');
+            } else {
+                $headerWrap.removeClass('is-header-scrolled');
+            }
+        }
+
+        if (scroll >= 100) {
             $(".is-fixed").addClass("color-fill");
         } else {
             $(".is-fixed").removeClass("color-fill");
         }
-    };	
+    }	
 
 /*--------------------------------------------------------------------------------------------
 	document.ready ALL FUNCTION START
@@ -713,7 +713,7 @@ All JavaScript fuctions Start
 		// > magnificPopup for video function	by = magnific-popup.js
 		magnific_video(),
 		// > Vertically center Bootstrap modal popup function by = custom.js
-		popup_vertical_center();
+		popup_vertical_center(),
 		// > Main menu sticky on top  when scroll down function by = custom.js		
 		sticky_header(),
 		// > page scroll top on button click function by = custom.js	
@@ -764,8 +764,6 @@ All JavaScript fuctions Start
 		animate_content(),
 		// > masonry function function by = isotope.pkgd.min.js		
 		masonryBox(),
-		// > page loader function by = custom.js		
-		page_loader(),
 		// > work carousel  function by = owl.carousel.js
 		work_carousel()		 
 });
@@ -778,6 +776,8 @@ All JavaScript fuctions Start
 	// > Window on scroll header color fill 
 		color_fill_header()
 	});
+
+	color_fill_header();
 	
 /*===========================
 	Window Resize ALL FUNCTION START
@@ -802,12 +802,7 @@ All JavaScript fuctions Start
 			data: form.serialize() + "&action=contactform",
 			type: 'POST',
 			dataType: 'JSON',
-			beforeSend: function() {
-				jQuery('.loading-area').show();
-			},
-
 			success:function(data){
-				jQuery('.loading-area').hide();
 				if(data['success']){
 				jQuery("<div class='alert alert-success'>"+data['message']+"</div>").insertBefore('form.cons-contact-form');
 				}else{

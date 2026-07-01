@@ -20,6 +20,28 @@ class PageController extends Controller
 
     public function update(Request $request, Page $page)
     {
+        if ($page->isBannerOnly()) {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'banner_title' => 'nullable|string|max:255',
+                'meta_title' => 'nullable|string|max:255',
+                'is_published' => 'boolean',
+                'banner_image' => 'nullable|image|max:4096',
+            ]);
+
+            $validated['is_published'] = $request->boolean('is_published');
+
+            if ($request->hasFile('banner_image')) {
+                $validated['banner_image'] = store_public_upload($request->file('banner_image'), 'uploads/pages');
+            } else {
+                unset($validated['banner_image']);
+            }
+
+            $page->update($validated);
+
+            return redirect()->route('admin.pages.index')->with('success', 'Page updated successfully.');
+        }
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'banner_title' => 'nullable|string|max:255',

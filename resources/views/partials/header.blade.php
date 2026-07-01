@@ -1,6 +1,6 @@
-<header class="site-header header-style-1 nav-wide mobile-sider-drawer-menu">
+<header class="site-header site-header--ios header-style-1 nav-wide mobile-sider-drawer-menu">
     <div class="sticky-header main-bar-wraper">
-        <div class="main-bar bg-white p-t10">
+        <div class="main-bar p-t10">
             <div class="container">
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
@@ -36,9 +36,6 @@
                 </div>
                 <div class="extra-nav">
                     <div class="extra-cell">
-                        <a href="#search" class="site-search-btn"><i class="fa fa-search"></i></a>
-                    </div>
-                    <div class="extra-cell">
                         <div class="dropdown share-icon-btn">
                             <a href="javascript:;" class="site-search-btn dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-share-alt"></i></a>
                             <div class="dropdown-menu bg-white">
@@ -55,15 +52,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="search">
-                    <span class="close"></span>
-                    <form role="search" method="get" class="radius-xl" action="{{ route('projects.index') }}">
-                        <div class="input-group">
-                            <input name="q" type="search" placeholder="Type to search"/>
-                            <span class="input-group-btn"><button type="submit" class="search-btn"><i class="fa fa-search"></i></button></span>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

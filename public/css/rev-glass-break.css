@@ -1,0 +1,77 @@
+.rev-glass-break {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.rev-glass-break.is-playing {
+    opacity: 1;
+    visibility: visible;
+}
+
+.rev-glass-break__flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.06) 42%, transparent 72%);
+    opacity: 0;
+    animation: revGlassFlash 0.3s ease-out forwards;
+}
+
+.rev-glass-break__shard {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.18);
+    background-repeat: no-repeat;
+    transform-origin: center center;
+    opacity: 1;
+    animation: revGlassShardOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: transform, opacity;
+}
+
+.rev-glass-break__shard::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, transparent 48%, rgba(255, 255, 255, 0.06) 100%);
+    pointer-events: none;
+}
+
+@keyframes revGlassFlash {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes revGlassShardOut {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(0.75);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rev-glass-break__shard,
+    .rev-glass-break__flash {
+        animation: none;
+    }
+
+    .rev-glass-break.is-playing {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
