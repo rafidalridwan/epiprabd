@@ -223,6 +223,22 @@
     line-height: 1.5;
 }
 
+.site-footer-modern__credit {
+    margin-left: 0.35rem;
+}
+
+.site-footer-modern__credit a {
+    color: #e31e24;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer-modern__credit a:hover {
+    color: #c4191f;
+    text-decoration: underline;
+}
+
 .site-footer-modern__top.scroltop {
     position: static;
     display: inline-flex !important;

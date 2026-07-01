@@ -98,6 +98,9 @@
             <div class="site-footer-modern__bottom-inner">
                 <span class="site-footer-modern__copyright">
                     {{ setting('footer_text', 'Copyright © ' . date('Y') . ' ' . setting('site_name')) }}
+                    <span class="site-footer-modern__credit">
+                        Designed by <a href="https://rafidalridwan.github.io/" target="_blank" rel="noopener noreferrer">RAR</a>
+                    </span>
                 </span>
                 <button type="button" class="scroltop site-footer-modern__top" aria-label="Back to top">
                     <i class="fa fa-angle-up"></i>
