@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', $page->meta_title ?? 'Contact Us')
+@section('title', ($page->title ?? 'Contact Us') . ' | ' . setting('site_name'))
 @section('body_attrs', 'id="bg"')
 
 @section('content')

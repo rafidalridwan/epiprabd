@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', ($page->meta_title ?? 'Career') . ' | ' . setting('site_name'))
+@section('title', ($page->title ?? 'Career') . ' | ' . setting('site_name'))
 
 @section('content')
 @include('partials.banner', [

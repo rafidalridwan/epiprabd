@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', $page->meta_title ?? setting('site_name'))
+@section('title', setting('site_name'))
 @section('meta_description', $page->meta_description)
 
 @push('styles')
