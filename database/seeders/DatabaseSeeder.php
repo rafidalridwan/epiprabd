@@ -195,9 +195,9 @@ class DatabaseSeeder extends Seeder
         }
 
         $sliderContent = [
-            1 => ['title' => 'Virtually Build Your House', 'subtitle' => 'GENERAL', 'description' => 'Excepteur sint occaecat cupidatat non proident laborum.'],
-            2 => ['title' => 'Natural plus modern.', 'subtitle' => 'GENERAL', 'description' => 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
-            3 => ['title' => 'Creative & Professional', 'subtitle' => 'GENERAL', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'],
+            1 => ['title' => 'Virtually Build Your House', 'description' => 'Excepteur sint occaecat cupidatat non proident laborum.'],
+            2 => ['title' => 'Natural plus modern.', 'description' => 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+            3 => ['title' => 'Creative & Professional', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'],
         ];
 
         foreach (range(1, 3) as $i) {
@@ -205,7 +205,7 @@ class DatabaseSeeder extends Seeder
                 ['sort_order' => $i],
                 [
                     'title' => $sliderContent[$i]['title'],
-                    'subtitle' => $sliderContent[$i]['subtitle'],
+                    'subtitle' => null,
                     'description' => $sliderContent[$i]['description'],
                     'image' => "images/main-slider/slider1/slide{$i}.jpg",
                     'button_text' => null,

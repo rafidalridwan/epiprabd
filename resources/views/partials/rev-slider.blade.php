@@ -1,8 +1,8 @@
 @php
     $defaultSlides = [
-        (object) ['image' => asset('images/main-slider/slider1/slide1.jpg'), 'subtitle' => 'GENERAL', 'title' => 'Virtually Build Your House', 'description' => 'Excepteur sint occaecat cupidatat non proident laborum.'],
-        (object) ['image' => asset('images/main-slider/slider1/slide2.jpg'), 'subtitle' => 'GENERAL', 'title' => 'Natural plus modern.', 'description' => 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
-        (object) ['image' => asset('images/main-slider/slider1/slide3.jpg'), 'subtitle' => 'GENERAL', 'title' => 'Creative & Professional', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'],
+        (object) ['image' => asset('images/main-slider/slider1/slide1.jpg'), 'title' => 'Virtually Build Your House', 'description' => 'Excepteur sint occaecat cupidatat non proident laborum.'],
+        (object) ['image' => asset('images/main-slider/slider1/slide2.jpg'), 'title' => 'Natural plus modern.', 'description' => 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'],
+        (object) ['image' => asset('images/main-slider/slider1/slide3.jpg'), 'title' => 'Creative & Professional', 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'],
     ];
     $heroSlides = $sliders->isNotEmpty() ? $sliders : collect($defaultSlides);
 @endphp

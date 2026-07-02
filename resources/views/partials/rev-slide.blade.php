@@ -1,11 +1,11 @@
 @php
     $slideId = 901 + $index;
     $imageUrl = isset($slide->id) ? media_url($slide->image) : asset($slide->image);
-    $subtitle = $slide->subtitle ?? 'GENERAL';
+    $subtitle = trim($slide->subtitle ?? '');
     $title = $slide->title ?? '';
     $description = strip_tags($slide->description ?? '');
 @endphp
-<li data-index="rs-{{ $slideId }}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="Power2.easeInOut" data-easeout="Power2.easeInOut" data-masterspeed="1000" data-thumb="{{ $imageUrl }}" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1000" data-fsslotamount="7" data-saveperformance="off" data-mad-title="{{ $title }}" data-mad-subtitle="{{ strtoupper($subtitle) }}" data-mad-link="{{ $slide->button_link ?? route('projects.index') }}" data-title="" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+<li data-index="rs-{{ $slideId }}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="Power2.easeInOut" data-easeout="Power2.easeInOut" data-masterspeed="1000" data-thumb="{{ $imageUrl }}" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1000" data-fsslotamount="7" data-saveperformance="off" data-mad-title="{{ $title }}"@if($subtitle) data-mad-subtitle="{{ strtoupper($subtitle) }}"@endif data-mad-link="{{ $slide->button_link ?? route('projects.index') }}" data-title="" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
     <img src="{{ $imageUrl }}" alt="{{ $title }}" data-lazyload="{{ $imageUrl }}" data-bgposition="center center" data-bgfit="cover" data-bgparallax="4" class="rev-slidebg" data-no-retina>
 
     <div class="tp-caption tp-shape tp-shapewrapper"

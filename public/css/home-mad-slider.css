@@ -138,6 +138,10 @@
     color: #1a1a1a;
 }
 
+.home-hero-panel__subtitle[hidden] {
+    display: none !important;
+}
+
 .home-hero-panel__link {
     flex-shrink: 0;
     font-size: 13px;

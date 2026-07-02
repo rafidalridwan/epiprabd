@@ -120,7 +120,9 @@
         }
 
         if (subtitleEl) {
-            subtitleEl.textContent = slide.getAttribute('data-mad-subtitle') || '';
+            var subtitle = (slide.getAttribute('data-mad-subtitle') || '').trim();
+            subtitleEl.textContent = subtitle;
+            subtitleEl.hidden = !subtitle;
         }
 
         if (linkEl) {
