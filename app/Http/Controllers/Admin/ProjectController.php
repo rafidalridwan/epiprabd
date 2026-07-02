@@ -31,6 +31,8 @@ class ProjectController extends Controller
         $validated['slug'] = $this->uniqueSlug($validated['title']);
         $validated['is_published'] = $request->boolean('is_published');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['latitude'] = $request->filled('latitude') ? $validated['latitude'] : null;
+        $validated['longitude'] = $request->filled('longitude') ? $validated['longitude'] : null;
 
         if ($request->hasFile('image')) {
             $validated['image'] = store_public_upload($request->file('image'), 'uploads/projects');
@@ -58,6 +60,8 @@ class ProjectController extends Controller
         $validated = $this->validateProject($request);
         $validated['is_published'] = $request->boolean('is_published');
         $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['latitude'] = $request->filled('latitude') ? $validated['latitude'] : null;
+        $validated['longitude'] = $request->filled('longitude') ? $validated['longitude'] : null;
 
         if ($request->hasFile('image')) {
             $validated['image'] = store_public_upload($request->file('image'), 'uploads/projects');
@@ -96,6 +100,8 @@ class ProjectController extends Controller
             'client' => 'nullable|string|max:255',
             'project_type' => 'nullable|string|max:255',
             'creative_director' => 'nullable|string|max:255',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'sort_order' => 'nullable|integer',
             'image' => 'nullable|image|max:4096',
             'banner_image' => 'nullable|image|max:4096',

@@ -106,6 +106,73 @@
                 </div>
                 @endforeach
             </div>
+
+            <div class="admin-form-section">
+                <h3><i class="fa fa-th-large" style="color:var(--admin-primary);"></i> Our Work Spans Section</h3>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:1rem;">Configure the expandable category panels shown on the home page before testimonials.</p>
+                <div class="admin-form-group">
+                    <label class="admin-form-check">
+                        <input type="checkbox" name="show_work_spans_section" value="1" {{ old('show_work_spans_section', $page->show_work_spans_section ?? true) ? 'checked' : '' }}>
+                        Show work spans section
+                    </label>
+                </div>
+                <div class="admin-form-group">
+                    <label>Section Heading</label>
+                    <input class="admin-form-control" name="work_spans_heading" value="{{ old('work_spans_heading', $page->work_spans_heading ?? 'Our work spans') }}" placeholder="Our work spans">
+                </div>
+
+                @php
+                    $workSpanItems = old('work_span_title')
+                        ? collect(old('work_span_title'))->map(fn ($title, $i) => [
+                            'title' => $title,
+                            'image' => old('work_span_image_current.'.$i),
+                            'category_slug' => old('work_span_category_slug.'.$i),
+                            'link' => old('work_span_link.'.$i),
+                        ])
+                        : collect($page->work_spans_items ?? []);
+                @endphp
+
+                @foreach(range(0, 2) as $i)
+                @php $item = $workSpanItems[$i] ?? []; @endphp
+                <div style="border:1px solid var(--admin-border,#e5e7eb);border-radius:10px;padding:1rem;margin-bottom:1rem;">
+                    <h4 style="margin:0 0 1rem;font-size:0.95rem;">Panel {{ $i + 1 }}</h4>
+                    <div class="admin-form-group">
+                        <label>Title</label>
+                        <input class="admin-form-control" name="work_span_title[{{ $i }}]" value="{{ $item['title'] ?? '' }}" placeholder="Architecture">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div class="admin-form-group">
+                            <label>Project Category Link</label>
+                            <select class="admin-form-control" name="work_span_category_slug[{{ $i }}]">
+                                <option value="">— None —</option>
+                                @foreach($projectCategories as $category)
+                                <option value="{{ $category->slug }}" {{ ($item['category_slug'] ?? '') === $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Custom Link (optional)</label>
+                            <input class="admin-form-control" name="work_span_link[{{ $i }}]" value="{{ $item['link'] ?? '' }}" placeholder="/projects">
+                            <p class="admin-form-hint" style="margin-top:0.35rem;">Used when no category is selected.</p>
+                        </div>
+                    </div>
+                    @if(!empty($item['image']))
+                    <div class="admin-image-preview-box admin-image-preview-static" style="margin-bottom:0.75rem;">
+                        <span class="admin-image-preview-label">Current image</span>
+                        <div class="admin-image-preview-frame">
+                            <img src="{{ media_url($item['image'], 'images/gallery/portrait/pic1.jpg') }}" alt="Work span image">
+                        </div>
+                    </div>
+                    <input type="hidden" name="work_span_image_current[{{ $i }}]" value="{{ $item['image'] }}">
+                    @endif
+                    <div class="admin-form-group" style="margin-bottom:0;">
+                        <label>Panel Image</label>
+                        <input type="file" class="admin-form-control" name="work_span_image[{{ $i }}]" accept="image/*">
+                        <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: landscape image, at least 1400×820px.</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
             @endif
 
             @if($page->slug === 'about')

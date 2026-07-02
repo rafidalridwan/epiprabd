@@ -16,8 +16,12 @@ class ProjectController extends Controller
             ->orderBy('sort_order')
             ->get();
         $page = Page::where('slug', 'projects')->where('is_published', true)->first();
+        $activeCategory = request('category');
+        $activeCategoryId = $categories->firstWhere('slug', $activeCategory)?->id;
 
-        return view('frontend.projects.index', compact('categories', 'projects', 'page'));
+        return view('frontend.projects.index', compact(
+            'categories', 'projects', 'page', 'activeCategory', 'activeCategoryId'
+        ));
     }
 
     public function show(string $slug)
@@ -28,5 +32,33 @@ class ProjectController extends Controller
             ->firstOrFail();
 
         return view('frontend.projects.show', compact('project'));
+    }
+
+    public function map()
+    {
+        $projects = Project::with('category')
+            ->where('is_published', true)
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->orderBy('sort_order')
+            ->get();
+
+        $page = Page::where('slug', 'projects')->where('is_published', true)->first();
+
+        $mapProjects = $projects->map(fn (Project $project) => [
+            'id' => $project->id,
+            'title' => $project->title,
+            'slug' => $project->slug,
+            'excerpt' => strip_tags($project->excerpt ?? ''),
+            'category' => $project->category?->name,
+            'client' => $project->client,
+            'project_type' => $project->project_type,
+            'image' => media_url($project->image),
+            'url' => route('projects.show', $project->slug),
+            'lat' => (float) $project->latitude,
+            'lng' => (float) $project->longitude,
+        ])->values();
+
+        return view('frontend.projects.map', compact('projects', 'page', 'mapProjects'));
     }
 }

@@ -1,5 +1,9 @@
 @extends('layouts.frontend')
 
+@section('body_attrs')
+class="page-home"
+@endsection
+
 @section('title', setting('site_name'))
 @section('meta_description', $page->meta_description)
 
@@ -10,12 +14,14 @@
 <link rel="stylesheet" href="{{ asset('css/home-slider-responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('css/rev-glass-break.css') }}">
 <link rel="stylesheet" href="{{ asset('css/clients-section.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-work-spans.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-hero-animations.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-mad-slider.css') }}">
 @endpush
 
 @section('content')
 
 @include('partials.rev-slider')
-
 
 <div class="section-full clearfix p-t80 bg-gray">
     <div class="container">
@@ -161,6 +167,8 @@
 </div>
 <!-- COMPANY DETAIL SECTION End -->
 
+@include('partials.home-work-spans')
+
 <!-- TESTIMONIALS SECTION START -->
 @if($testimonials->count())
 <div class="section-full p-t80 clearfixbg-repeat " style="background-image:url({{ asset('images/background/ptn-1.png') }});">
@@ -220,7 +228,7 @@
         </div>
 
         <div class="clients-section__carousel">
-            <div class="owl-carousel home-client-carousel owl-btn-vertical-center">
+            <div class="owl-carousel home-client-carousel">
                 @foreach($clients as $client)
                 <div class="item">
                     <div class="clients-section__card">
@@ -248,6 +256,9 @@
 <script src="{{ asset('plugins/revolution/revolution/js/extensions/revolution-plugin.js') }}"></script>
 <script src="{{ asset('js/rev-script-1.js') }}"></script>
 <script src="{{ asset('js/rev-glass-break.js') }}"></script>
+<script src="{{ asset('js/home-work-spans.js') }}"></script>
+<script src="{{ asset('js/home-hero-animations.js') }}"></script>
+<script src="{{ asset('js/home-mad-slider.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('.latest_project-carousel').owlCarousel({

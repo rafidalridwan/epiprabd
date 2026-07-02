@@ -14,6 +14,7 @@ class Page extends Model
         'who_badge_strong', 'who_badge_span',
         'facts_subtitle', 'facts_heading', 'facts_content',
         'facts_bg_image', 'facts_stats',
+        'show_work_spans_section', 'work_spans_heading', 'work_spans_items',
         'about_gallery_images', 'about_button_text', 'about_button_link',
         'experts_heading', 'experts_bg_image', 'show_experts_section',
         'is_published',
@@ -24,6 +25,8 @@ class Page extends Model
         return [
             'is_published' => 'boolean',
             'facts_stats' => 'array',
+            'work_spans_items' => 'array',
+            'show_work_spans_section' => 'boolean',
             'about_gallery_images' => 'array',
             'show_experts_section' => 'boolean',
         ];

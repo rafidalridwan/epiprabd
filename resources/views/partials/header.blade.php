@@ -1,4 +1,4 @@
-<header class="site-header site-header--ios header-style-1 nav-wide mobile-sider-drawer-menu">
+<header class="site-header site-header--ios header-style-1 nav-wide mobile-sider-drawer-menu{{ request()->routeIs('home') ? ' site-header--hero' : '' }}">
     <div class="sticky-header main-bar-wraper">
         <div class="main-bar p-t10">
             <div class="container">
@@ -23,8 +23,11 @@
                         <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
                             <a href="{{ route('about') }}">About</a>
                         </li>
-                        <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
+                        <li class="{{ request()->routeIs('projects.index', 'projects.show') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">Projects</a>
+                        </li>
+                        <li class="{{ request()->routeIs('projects.map') ? 'active' : '' }}">
+                            <a href="{{ route('projects.map') }}">Project Map</a>
                         </li>
                         <li class="{{ request()->routeIs('career.*') || request()->routeIs('jobs.*') ? 'active' : '' }}">
                             <a href="{{ route('career.index') }}">Career</a>

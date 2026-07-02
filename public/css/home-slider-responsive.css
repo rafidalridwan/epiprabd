@@ -1,3 +1,36 @@
+/* Slow zoom in, then zoom out on each active slide image */
+#welcome_wrapper .rev_slider .slotholder {
+    overflow: hidden !important;
+}
+
+@keyframes homeSliderKenBurns {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.12);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#welcome_wrapper .tp-bgimg.home-slider-zoom {
+    animation: homeSliderKenBurns var(--slider-zoom-duration, 10s) ease-in-out forwards;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.page-home #welcome_wrapper:not(.is-hero-zoom-ready) .tp-bgimg.home-slider-zoom {
+    animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #welcome_wrapper .tp-bgimg.home-slider-zoom {
+        animation: none;
+    }
+}
+
 /* Hide slider left/right arrows */
 #welcome_wrapper .tparrows,
 #welcome_wrapper .new-bullet-bar.tparrows {
@@ -32,6 +65,13 @@
         margin-right: 0 !important;
         padding: 0 !important;
         overflow: hidden;
+    }
+
+    .page-home #welcome_wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+        margin-left: 0 !important;
     }
 
     #welcome_wrapper .rev_slider,

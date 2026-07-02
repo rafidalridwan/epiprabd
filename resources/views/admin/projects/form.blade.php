@@ -125,6 +125,20 @@
                 <div class="admin-form-group"><label>Project Type</label><input class="admin-form-control" name="project_type" value="{{ old('project_type', $project->project_type) }}"></div>
                 <div class="admin-form-group"><label>Creative Director</label><input class="admin-form-control" name="creative_director" value="{{ old('creative_director', $project->creative_director) }}"></div>
             </div>
+            <div class="admin-form-group">
+                <label>Map Location</label>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Optional coordinates to show this project on the Project Map. Right-click a place in Google Maps and copy the latitude/longitude.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                    <div>
+                        <label class="admin-form-hint" style="display:block;margin-bottom:0.35rem;">Latitude</label>
+                        <input type="number" step="any" class="admin-form-control" name="latitude" value="{{ old('latitude', $project->latitude) }}" placeholder="e.g. 23.8103">
+                    </div>
+                    <div>
+                        <label class="admin-form-hint" style="display:block;margin-bottom:0.35rem;">Longitude</label>
+                        <input type="number" step="any" class="admin-form-control" name="longitude" value="{{ old('longitude', $project->longitude) }}" placeholder="e.g. 90.4125">
+                    </div>
+                </div>
+            </div>
             <div class="admin-form-group" style="display:flex;gap:1.5rem;">
                 <label class="admin-form-check"><input type="checkbox" name="is_published" value="1" {{ old('is_published', $project->is_published ?? true) ? 'checked' : '' }}> Published</label>
                 <label class="admin-form-check"><input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $project->is_featured) ? 'checked' : '' }}> Featured on Home</label>

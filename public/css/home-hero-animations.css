@@ -1,0 +1,138 @@
+/* Home page — separate header + slider (no overlap) */
+
+:root {
+    --home-header-height: 90px;
+}
+
+.page-home .site-header--hero {
+    position: relative;
+    z-index: 1000;
+    background: #ffffff;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-home .site-header--hero.is-header-intro {
+    opacity: 1;
+}
+
+.page-home .site-header--hero .main-bar-wraper {
+    min-height: var(--home-header-height);
+}
+
+.page-home .site-header--hero .main-bar {
+    min-height: var(--home-header-height);
+    display: flex;
+    align-items: center;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.page-home .site-header--hero .container {
+    width: 100%;
+}
+
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li {
+    opacity: 0;
+    transform: translateY(-8px);
+    animation: homeHeroNavIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(1) { animation-delay: 0.12s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(2) { animation-delay: 0.18s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(3) { animation-delay: 0.24s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(4) { animation-delay: 0.30s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(5) { animation-delay: 0.36s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(6) { animation-delay: 0.42s; }
+
+.page-home .site-header--hero.is-header-intro .logo-header {
+    animation: homeHeroNavIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.page-home .site-header--hero.is-header-intro .extra-nav {
+    animation: homeHeroNavIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+/* Sticky header on scroll — home page */
+.page-home .sticky-wrapper.is-sticky {
+    z-index: 1001;
+}
+
+.page-home .is-fixed .main-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.page-home .is-fixed .main-bar-wraper.is-header-scrolled .main-bar,
+.page-home .sticky-wrapper.is-sticky .main-bar {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+@keyframes homeHeroNavIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-home #welcome_wrapper {
+    position: relative;
+    margin-top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    overflow: visible;
+}
+
+.page-home #welcome_wrapper .rev_slider,
+.page-home #welcome_wrapper .rev_slider ul,
+.page-home #welcome_wrapper .rev_slider li,
+.page-home #welcome_wrapper .rev_slider .slotholder,
+.page-home #welcome_wrapper .rev_slider .tp-revslider-mainul {
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+.page-home #welcome_wrapper.is-hero-zoom-ready .tp-bgimg.home-slider-zoom {
+    animation: homeSliderKenBurns var(--slider-zoom-duration, 10s) ease-in-out forwards;
+}
+
+@media only screen and (max-width: 991px) {
+    :root {
+        --home-header-height: 72px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-home .site-header--hero,
+    .page-home #welcome_wrapper .tp-bgimg,
+    .page-home #welcome_wrapper .tp-parallax-wrap,
+    .page-home #welcome_wrapper .rev_row_zone,
+    .page-home .site-header--hero .header-nav .nav > li,
+    .page-home .site-header--hero .logo-header,
+    .page-home .site-header--hero .extra-nav {
+        transition: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

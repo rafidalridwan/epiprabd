@@ -93,6 +93,10 @@
     }
 
     function initGlassBreak(revapi) {
+        if (document.body.classList.contains('page-home')) {
+            return;
+        }
+
         var $slider = $('#welcome');
         var $overlay = $('<div class="rev-glass-break" aria-hidden="true"></div>');
 

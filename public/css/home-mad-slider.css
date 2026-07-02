@@ -1,0 +1,195 @@
+/* MAD-style home hero slider */
+
+.page-home #welcome_wrapper.home-hero {
+    --hero-gutter: 12px;
+    --hero-radius: 12px;
+    padding: 0 var(--hero-gutter) var(--hero-gutter);
+    box-sizing: border-box;
+    background: transparent !important;
+}
+
+.page-home .home-hero-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    clip-path: inset(100% 0 0 0 round var(--hero-radius));
+    transition: clip-path 1.35s cubic-bezier(0.77, 0, 0.175, 1);
+    overflow: hidden;
+    will-change: clip-path;
+}
+
+.page-home #welcome_wrapper.is-hero-intro .home-hero-stage {
+    clip-path: inset(0 round var(--hero-radius));
+}
+
+.page-home #welcome_wrapper .rev_row_zone,
+.page-home #welcome_wrapper .tp-bullets,
+.page-home #welcome_wrapper .tp-shapewrapper {
+    display: none !important;
+}
+
+.page-home #welcome_wrapper .tp-bgimg {
+    transition: transform 2.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.2s ease;
+}
+
+.page-home #welcome_wrapper:not(.is-hero-intro) .tp-bgimg {
+    transform: scale(1.1);
+    filter: blur(6px);
+}
+
+.page-home #welcome_wrapper.is-hero-intro .tp-bgimg {
+    filter: blur(0);
+}
+
+.page-home #welcome_wrapper.is-hero-intro:not(.is-hero-zoom-ready) .active-revslide .tp-bgimg {
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* Bottom panel — like i-mad.com */
+.home-hero-panel {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 30;
+    max-width: 415px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(234, 234, 234, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+.home-hero-panel.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.home-hero-panel__progress {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.home-hero-panel__bar {
+    flex: 1;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.2;
+    transition: opacity 0.35s ease;
+}
+
+.home-hero-panel__bar.is-active {
+    opacity: 1;
+}
+
+.home-hero-panel__bar-track {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: rgba(26, 26, 26, 0.25);
+    overflow: hidden;
+}
+
+.home-hero-panel__bar-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: #1a1a1a;
+}
+
+.home-hero-panel__content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.home-hero-panel__text {
+    min-width: 0;
+}
+
+.home-hero-panel__title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+}
+
+.home-hero-panel__subtitle {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+}
+
+.home-hero-panel__link {
+    flex-shrink: 0;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a !important;
+    text-decoration: none !important;
+    padding-top: 4px;
+}
+
+.home-hero-panel__link:hover {
+    opacity: 0.7;
+}
+
+@media (min-width: 992px) {
+    .home-hero-panel {
+        left: 12px;
+        right: auto;
+        background: rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    .home-hero-panel__title,
+    .home-hero-panel__subtitle,
+    .home-hero-panel__link {
+        color: #ffffff !important;
+    }
+
+    .home-hero-panel__bar-track {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    .home-hero-panel__bar-fill {
+        background: #ffffff;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-home .home-hero-stage,
+    .page-home #welcome_wrapper .tp-bgimg,
+    .home-hero-panel {
+        transition: none !important;
+    }
+
+    .page-home .home-hero-stage {
+        clip-path: inset(0 round var(--hero-radius)) !important;
+    }
+
+    .page-home #welcome_wrapper .tp-bgimg {
+        filter: none !important;
+        transform: none !important;
+    }
+}

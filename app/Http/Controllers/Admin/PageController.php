@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -15,7 +16,11 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-        return view('admin.pages.edit', compact('page'));
+        $projectCategories = $page->slug === 'home'
+            ? ProjectCategory::where('is_active', true)->orderBy('sort_order')->get()
+            : collect();
+
+        return view('admin.pages.edit', compact('page', 'projectCategories'));
     }
 
     public function update(Request $request, Page $page)
@@ -64,6 +69,18 @@ class PageController extends Controller
             'stat_value.*' => 'nullable|string|max:50',
             'stat_label' => 'nullable|array',
             'stat_label.*' => 'nullable|string|max:255',
+            'show_work_spans_section' => 'boolean',
+            'work_spans_heading' => 'nullable|string|max:255',
+            'work_span_title' => 'nullable|array',
+            'work_span_title.*' => 'nullable|string|max:255',
+            'work_span_category_slug' => 'nullable|array',
+            'work_span_category_slug.*' => 'nullable|string|max:255',
+            'work_span_link' => 'nullable|array',
+            'work_span_link.*' => 'nullable|string|max:255',
+            'work_span_image' => 'nullable|array',
+            'work_span_image.*' => 'nullable|image|max:4096',
+            'work_span_image_current' => 'nullable|array',
+            'work_span_image_current.*' => 'nullable|string|max:255',
             'about_button_text' => 'nullable|string|max:255',
             'about_button_link' => 'nullable|string|max:255',
             'experts_heading' => 'nullable|string|max:255',
@@ -102,7 +119,38 @@ class PageController extends Controller
             unset($validated['intro_image']);
         }
 
-        if ($page->slug === 'about') {
+        if ($page->slug === 'home') {
+            $validated['show_work_spans_section'] = $request->boolean('show_work_spans_section');
+
+            $workSpanItems = [];
+            foreach (range(0, 2) as $i) {
+                $title = trim((string) $request->input("work_span_title.{$i}", ''));
+                if ($title === '') {
+                    continue;
+                }
+
+                $image = $request->input("work_span_image_current.{$i}");
+                if ($request->hasFile("work_span_image.{$i}")) {
+                    $image = store_public_upload($request->file("work_span_image.{$i}"), 'uploads/pages/work-spans');
+                }
+
+                $workSpanItems[] = [
+                    'title' => $title,
+                    'image' => $image,
+                    'category_slug' => $request->input("work_span_category_slug.{$i}") ?: null,
+                    'link' => $request->input("work_span_link.{$i}") ?: null,
+                ];
+            }
+
+            $validated['work_spans_items'] = $workSpanItems ?: null;
+            unset(
+                $validated['work_span_title'],
+                $validated['work_span_category_slug'],
+                $validated['work_span_link'],
+                $validated['work_span_image'],
+                $validated['work_span_image_current']
+            );
+        } elseif ($page->slug === 'about') {
             $validated['show_experts_section'] = $request->boolean('show_experts_section');
 
             if ($request->hasFile('experts_bg_image')) {
@@ -128,6 +176,17 @@ class PageController extends Controller
             }
             $validated['about_gallery_images'] = $galleryImages ?: null;
             unset($validated['remove_about_gallery']);
+
+            unset(
+                $validated['show_work_spans_section'],
+                $validated['work_spans_heading'],
+                $validated['work_spans_items'],
+                $validated['work_span_title'],
+                $validated['work_span_category_slug'],
+                $validated['work_span_link'],
+                $validated['work_span_image'],
+                $validated['work_span_image_current']
+            );
         } else {
             unset(
                 $validated['about_button_text'],
@@ -136,7 +195,15 @@ class PageController extends Controller
                 $validated['about_gallery_images'],
                 $validated['remove_about_gallery'],
                 $validated['show_experts_section'],
-                $validated['experts_bg_image']
+                $validated['experts_bg_image'],
+                $validated['show_work_spans_section'],
+                $validated['work_spans_heading'],
+                $validated['work_spans_items'],
+                $validated['work_span_title'],
+                $validated['work_span_category_slug'],
+                $validated['work_span_link'],
+                $validated['work_span_image'],
+                $validated['work_span_image_current']
             );
         }
 

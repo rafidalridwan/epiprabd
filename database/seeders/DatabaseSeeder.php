@@ -74,6 +74,13 @@ class DatabaseSeeder extends Seeder
                 ['value' => '532', 'label' => 'Finished projects'],
                 ['value' => '299', 'label' => 'Working Days'],
             ],
+            'show_work_spans_section' => true,
+            'work_spans_heading' => 'Our work spans',
+            'work_spans_items' => [
+                ['title' => 'House', 'image' => 'images/projects/pic-1.jpg', 'category_slug' => 'house', 'link' => null],
+                ['title' => 'Building', 'image' => 'images/projects/pic-2.jpg', 'category_slug' => 'building', 'link' => null],
+                ['title' => 'Office', 'image' => 'images/projects/pic-3.jpg', 'category_slug' => 'office', 'link' => null],
+            ],
             'is_published' => true,
         ]);
 
@@ -149,7 +156,22 @@ class DatabaseSeeder extends Seeder
             'images/gallery/portrait/pic7.jpg',
         ];
 
+        $bangladeshLocations = [
+            ['lat' => 23.8103, 'lng' => 90.4125],   // Dhaka
+            ['lat' => 22.3569, 'lng' => 91.7832],   // Chattogram
+            ['lat' => 24.8949, 'lng' => 91.8687],   // Sylhet
+            ['lat' => 24.8481, 'lng' => 89.3720],   // Bogura
+            ['lat' => 22.8456, 'lng' => 89.5403],   // Khulna
+            ['lat' => 24.3745, 'lng' => 88.6042],   // Rajshahi
+            ['lat' => 22.7010, 'lng' => 90.3535],   // Barishal
+            ['lat' => 25.7439, 'lng' => 89.2752],   // Rangpur
+            ['lat' => 21.4272, 'lng' => 92.0058],   // Cox's Bazar
+            ['lat' => 24.7471, 'lng' => 90.4203],   // Mymensingh
+        ];
+
         foreach (range(1, 10) as $i) {
+            $location = $bangladeshLocations[$i - 1];
+
             Project::updateOrCreate(
                 ['slug' => 'triangle-concrete-house-' . $i],
                 [
@@ -163,6 +185,8 @@ class DatabaseSeeder extends Seeder
                     'client' => 'Branding NthPsd Company',
                     'project_type' => 'Construction, Branding',
                     'creative_director' => 'Lorem Ipsum doler',
+                    'latitude' => $location['lat'],
+                    'longitude' => $location['lng'],
                     'is_published' => true,
                     'is_featured' => $i <= 6,
                     'sort_order' => $i,

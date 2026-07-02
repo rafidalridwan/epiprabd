@@ -445,7 +445,7 @@ All JavaScript fuctions Start
 		autoplayTimeout:3500,
 		autoplayHoverPause:true,
 		smartSpeed:650,
-		nav:true,
+		nav:false,
 		dots: false,
 		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
 		responsive:{

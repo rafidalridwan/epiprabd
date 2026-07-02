@@ -7,13 +7,26 @@
     $heroSlides = $sliders->isNotEmpty() ? $sliders : collect($defaultSlides);
 @endphp
 
-<div id="welcome_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="goodnews-header" data-source="gallery" style="background:#eeeeee;padding:0px;">
-    <div id="welcome" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.3.1">
-        <ul>
-            @foreach($heroSlides as $index => $slide)
-                @include('partials.rev-slide', ['slide' => $slide, 'index' => $index + 1])
-            @endforeach
-        </ul>
-        <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+<div id="welcome_wrapper" class="rev_slider_wrapper fullscreen-container home-hero" data-alias="goodnews-header" data-source="gallery" style="background:transparent;padding:0;">
+    <div class="home-hero-stage">
+        <div id="welcome" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.3.1">
+            <ul>
+                @foreach($heroSlides as $index => $slide)
+                    @include('partials.rev-slide', ['slide' => $slide, 'index' => $index + 1])
+                @endforeach
+            </ul>
+            <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+        </div>
+
+        <div class="home-hero-panel" id="home-hero-panel" aria-live="polite">
+            <div class="home-hero-panel__progress" id="home-hero-progress"></div>
+            <div class="home-hero-panel__content">
+                <div class="home-hero-panel__text">
+                    <p class="home-hero-panel__title"></p>
+                    <p class="home-hero-panel__subtitle"></p>
+                </div>
+                <a class="home-hero-panel__link" href="#">View</a>
+            </div>
+        </div>
     </div>
 </div>

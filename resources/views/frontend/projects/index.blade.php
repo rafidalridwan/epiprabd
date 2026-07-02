@@ -13,9 +13,11 @@
     <div class="container">
         <div class="filter-wrap p-b50">
             <ul class="masonry-filter link-style text-uppercase">
-                <li class="active"><a data-filter="*" href="#">All</a></li>
+                <li class="{{ empty($activeCategoryId) ? 'active' : '' }}"><a data-filter="*" href="{{ route('projects.index') }}">All</a></li>
                 @foreach($categories as $category)
-                <li><a data-filter=".cat-{{ $category->id }}" href="#">{{ $category->name }}</a></li>
+                <li class="{{ (int) $activeCategoryId === (int) $category->id ? 'active' : '' }}">
+                    <a data-filter=".cat-{{ $category->id }}" href="{{ route('projects.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                </li>
                 @endforeach
             </ul>
         </div>
@@ -44,3 +46,29 @@
     </div>
 </div>
 @endsection
+
+@if(!empty($activeCategoryId))
+@push('scripts')
+<script>
+    jQuery(function ($) {
+        var selector = '.cat-{{ $activeCategoryId }}';
+        var $container = $('.portfolio-wrap');
+        var attempts = 0;
+
+        function applyCategoryFilter() {
+            if ($container.length && $.fn.isotope && $container.data('isotope')) {
+                $container.isotope({ filter: selector });
+                return;
+            }
+
+            attempts += 1;
+            if (attempts < 30) {
+                window.setTimeout(applyCategoryFilter, 100);
+            }
+        }
+
+        applyCategoryFilter();
+    });
+</script>
+@endpush
+@endif

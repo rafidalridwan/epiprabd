@@ -12,16 +12,24 @@ class Project extends Model
     protected $fillable = [
         'project_category_id', 'title', 'slug', 'excerpt', 'description',
         'image', 'banner_image', 'project_date', 'client', 'project_type',
-        'creative_director', 'is_published', 'is_featured', 'sort_order',
+        'creative_director', 'latitude', 'longitude',
+        'is_published', 'is_featured', 'sort_order',
     ];
 
     protected function casts(): array
     {
         return [
             'project_date' => 'date',
+            'latitude' => 'float',
+            'longitude' => 'float',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
         ];
+    }
+
+    public function hasCoordinates(): bool
+    {
+        return $this->latitude !== null && $this->longitude !== null;
     }
 
     public function category(): BelongsTo
