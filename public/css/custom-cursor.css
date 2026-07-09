@@ -1,0 +1,64 @@
+/* Custom cursor — dot + lagging ring (desktop pointer devices only) */
+html.custom-cursor-enabled,
+html.custom-cursor-enabled body,
+html.custom-cursor-enabled a,
+html.custom-cursor-enabled button,
+html.custom-cursor-enabled input,
+html.custom-cursor-enabled select,
+html.custom-cursor-enabled textarea,
+html.custom-cursor-enabled label,
+html.custom-cursor-enabled [role="button"],
+html.custom-cursor-enabled .site-button,
+html.custom-cursor-enabled .scroltop {
+    cursor: none;
+}
+
+#cursor-dot,
+#cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: #e63946;
+}
+
+#cursor-ring {
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid #f4a0a0;
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
+#cursor-ring.hover {
+    width: 64px;
+    height: 64px;
+}
+
+@media (hover: none), (pointer: coarse) {
+    html.custom-cursor-enabled,
+    html.custom-cursor-enabled body,
+    html.custom-cursor-enabled a,
+    html.custom-cursor-enabled button,
+    html.custom-cursor-enabled input,
+    html.custom-cursor-enabled select,
+    html.custom-cursor-enabled textarea,
+    html.custom-cursor-enabled label,
+    html.custom-cursor-enabled [role="button"],
+    html.custom-cursor-enabled .site-button,
+    html.custom-cursor-enabled .scroltop {
+        cursor: auto;
+    }
+
+    #cursor-dot,
+    #cursor-ring {
+        display: none;
+    }
+}
