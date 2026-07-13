@@ -19,33 +19,11 @@ class ProjectController extends Controller
         $activeCategory = request('category');
         $activeCategoryId = $categories->firstWhere('slug', $activeCategory)?->id;
 
-        return view('frontend.projects.index', compact(
-            'categories', 'projects', 'page', 'activeCategory', 'activeCategoryId'
-        ));
-    }
+        $mappedProjects = $projects
+            ->filter(fn (Project $project) => $project->latitude !== null && $project->longitude !== null)
+            ->values();
 
-    public function show(string $slug)
-    {
-        $project = Project::with('category', 'images')
-            ->where('slug', $slug)
-            ->where('is_published', true)
-            ->firstOrFail();
-
-        return view('frontend.projects.show', compact('project'));
-    }
-
-    public function map()
-    {
-        $projects = Project::with('category')
-            ->where('is_published', true)
-            ->whereNotNull('latitude')
-            ->whereNotNull('longitude')
-            ->orderBy('sort_order')
-            ->get();
-
-        $page = Page::where('slug', 'projects')->where('is_published', true)->first();
-
-        $mapProjects = $projects->map(fn (Project $project) => [
+        $mapProjects = $mappedProjects->map(fn (Project $project) => [
             'id' => $project->id,
             'title' => $project->title,
             'slug' => $project->slug,
@@ -59,6 +37,24 @@ class ProjectController extends Controller
             'lng' => (float) $project->longitude,
         ])->values();
 
-        return view('frontend.projects.map', compact('projects', 'page', 'mapProjects'));
+        return view('frontend.projects.index', compact(
+            'categories',
+            'projects',
+            'page',
+            'activeCategory',
+            'activeCategoryId',
+            'mappedProjects',
+            'mapProjects'
+        ));
+    }
+
+    public function show(string $slug)
+    {
+        $project = Project::with('category', 'images')
+            ->where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
+        return view('frontend.projects.show', compact('project'));
     }
 }

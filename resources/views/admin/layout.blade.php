@@ -17,7 +17,10 @@
 <body class="admin-body">
 <div class="admin-overlay" id="adminOverlay"></div>
 <div class="admin-wrap">
-    @include('admin.partials.sidebar', ['unreadMessages' => $unreadMessages ?? 0])
+    @include('admin.partials.sidebar', [
+        'unreadMessages' => $unreadMessages ?? 0,
+        'unreadApplications' => $unreadApplications ?? 0,
+    ])
 
     <div class="admin-main">
         @include('admin.partials.topbar')

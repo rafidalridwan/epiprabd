@@ -20,35 +20,50 @@
         </div>
         <div class="section-content m-t40">
             @if($jobCirculars->count())
-            <div class="row">
-                @foreach($jobCirculars as $job)
-                <div class="col-lg-4 col-md-6 col-sm-12 m-b30">
-                    <div class="wt-box bg-gray p-a30 h-100 d-flex flex-column" style="min-height:280px;">
-                        <div class="m-b15">
-                            @if($job->isOpen())
-                            <span style="background:#10b981;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;text-transform:uppercase;">Open</span>
-                            @else
-                            <span style="background:#94a3b8;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;text-transform:uppercase;">Closed</span>
-                            @endif
-                        </div>
-                        <h4 class="text-uppercase font-20 m-t0 m-b15">
-                            <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                        </h4>
-                        <ul class="list-unstyled m-b20" style="font-size:13px;color:#64748b;">
-                            @if($job->department)<li class="m-b5"><i class="fa fa-building m-r5"></i> {{ $job->department }}</li>@endif
-                            @if($job->job_type)<li class="m-b5"><i class="fa fa-clock-o m-r5"></i> {{ $job->job_type }}</li>@endif
-                            @if($job->location)<li class="m-b5"><i class="fa fa-map-marker m-r5"></i> {{ $job->location }}</li>@endif
-                            @if($job->deadline)<li class="m-b5"><i class="fa fa-calendar m-r5"></i> Deadline: {{ $job->deadline->format('M d, Y') }}</li>@endif
-                        </ul>
-                        @if($job->excerpt)
-                        <p class="text-lowercase m-b20 flex-grow-1">{{ strip_tags($job->excerpt) }}</p>
-                        @endif
-                        <a href="{{ route('jobs.show', $job->slug) }}" class="site-button black radius-no text-uppercase align-self-start">
-                            <span class="font-12 letter-spacing-5">View Details</span>
-                        </a>
-                    </div>
-                </div>
-                @endforeach
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="text-uppercase">Position</th>
+                            <th scope="col" class="text-uppercase">Closing Date</th>
+                            <th scope="col" class="text-uppercase">Status</th>
+                            <th scope="col" class="text-uppercase">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($jobCirculars as $job)
+                        <tr>
+                            <td>
+                                <a href="{{ route('jobs.show', $job->slug) }}" class="text-dark text-uppercase font-weight-bold">
+                                    {{ $job->title }}
+                                </a>
+                                @if($job->department || $job->location)
+                                <div class="text-muted font-12 m-t5">
+                                    @if($job->department){{ $job->department }}@endif
+                                    @if($job->department && $job->location) · @endif
+                                    @if($job->location){{ $job->location }}@endif
+                                </div>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $job->deadline?->format('M d, Y') ?? '—' }}
+                            </td>
+                            <td>
+                                @if($job->isOpen())
+                                <span style="background:#10b981;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;text-transform:uppercase;">Open</span>
+                                @else
+                                <span style="background:#94a3b8;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;text-transform:uppercase;">Closed</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('jobs.show', $job->slug) }}" class="site-button button-sm black radius-no text-uppercase">
+                                    <span class="font-12">View Details</span>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             @else
             <div class="text-center p-t40 p-b40">

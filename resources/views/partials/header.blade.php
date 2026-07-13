@@ -23,11 +23,8 @@
                         <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
                             <a href="{{ route('about') }}">About</a>
                         </li>
-                        <li class="{{ request()->routeIs('projects.index', 'projects.show') ? 'active' : '' }}">
+                        <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">Projects</a>
-                        </li>
-                        <li class="{{ request()->routeIs('projects.map') ? 'active' : '' }}">
-                            <a href="{{ route('projects.map') }}">Project Map</a>
                         </li>
                         <li class="{{ request()->routeIs('career.*') || request()->routeIs('jobs.*') ? 'active' : '' }}">
                             <a href="{{ route('career.index') }}">Career</a>

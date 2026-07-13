@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\HomeCard;
 use App\Models\JobCircular;
 use App\Models\Page;
 use App\Models\Project;
@@ -37,6 +38,11 @@ class HomeController extends Controller
             ->get();
         $testimonials = Testimonial::where('is_active', true)->orderBy('sort_order')->get();
         $clients = Client::where('is_active', true)->orderBy('sort_order')->get();
+        $homeCards = HomeCard::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderByDesc('created_at')
+            ->limit(3)
+            ->get();
 
         $workSpanCategories = collect();
 
@@ -83,7 +89,7 @@ class HomeController extends Controller
         return view('frontend.home', compact(
             'page', 'sliders', 'featuredProjects', 'carouselProjects',
             'teamMembers', 'featuredMember', 'jobCirculars', 'testimonials', 'clients',
-            'workSpanCategories'
+            'workSpanCategories', 'homeCards'
         ));
     }
 }

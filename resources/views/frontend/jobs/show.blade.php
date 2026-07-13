@@ -11,6 +11,13 @@
 
 <div class="section-full p-t80 p-b50">
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success m-b30">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-danger m-b30">{{ session('error') }}</div>
+        @endif
+
         <div class="row">
             <div class="col-lg-8 col-md-12 m-b30">
                 <div class="bg-white p-a40" style="border:1px solid #eee;">
@@ -24,6 +31,60 @@
                     <h2 class="font-36 text-uppercase m-t0 m-b20">{{ $job->title }}</h2>
                     <div class="job-description">{!! $job->description !!}</div>
                 </div>
+
+                @if($job->isOpen())
+                <div id="apply-form" class="bg-white p-a40 m-t30" style="border:1px solid #eee;">
+                    <h3 class="text-uppercase font-24 m-t0 m-b10">Apply for this Position</h3>
+                    <p class="font-14 m-b30 text-muted">Fill in your details and upload your CV to submit your application.</p>
+
+                    <form method="POST" action="{{ route('jobs.apply', $job->slug) }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-uppercase font-12">Full Name <span class="text-danger">*</span></label>
+                                    <input name="name" type="text" required class="form-control @error('name') is-invalid @enderror" placeholder="Your full name" value="{{ old('name') }}">
+                                    @error('name')<span class="text-danger font-12">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-uppercase font-12">Email <span class="text-danger">*</span></label>
+                                    <input name="email" type="email" required class="form-control @error('email') is-invalid @enderror" placeholder="you@example.com" value="{{ old('email') }}">
+                                    @error('email')<span class="text-danger font-12">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-uppercase font-12">Phone <span class="text-danger">*</span></label>
+                                    <input name="phone" type="text" required class="form-control @error('phone') is-invalid @enderror" placeholder="Your phone number" value="{{ old('phone') }}">
+                                    @error('phone')<span class="text-danger font-12">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-uppercase font-12">Upload CV <span class="text-danger">*</span></label>
+                                    <input name="cv" type="file" required accept=".pdf,.doc,.docx" class="form-control @error('cv') is-invalid @enderror">
+                                    <small class="text-muted">PDF, DOC, or DOCX — max 5MB</small>
+                                    @error('cv')<div class="text-danger font-12">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="text-uppercase font-12">Cover Letter / Message</label>
+                                    <textarea name="message" rows="4" class="form-control @error('message') is-invalid @enderror" placeholder="Tell us briefly why you're a good fit (optional)">{{ old('message') }}</textarea>
+                                    @error('message')<span class="text-danger font-12">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="site-button black radius-no text-uppercase">
+                                    <span class="font-12 letter-spacing-5">Submit Application</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @endif
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="bg-black text-white p-a30">
@@ -58,9 +119,15 @@
                         <p class="m-b0">{{ $job->deadline->format('F d, Y') }}</p>
                     </div>
                     @endif
-                    <a href="{{ route('contact') }}" class="site-button white radius-no text-uppercase m-t10">
+                    @if($job->isOpen())
+                    <a href="#apply-form" class="site-button white radius-no text-uppercase m-t10">
                         <span class="font-12 letter-spacing-5">Apply Now</span>
                     </a>
+                    @else
+                    <span class="site-button radius-no text-uppercase m-t10" style="opacity:0.5;cursor:not-allowed;pointer-events:none;">
+                        <span class="font-12 letter-spacing-5">Applications Closed</span>
+                    </span>
+                    @endif
                 </div>
             </div>
         </div>

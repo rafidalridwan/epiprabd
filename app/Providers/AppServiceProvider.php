@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\ContactMessage;
+use App\Models\JobApplication;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -42,6 +43,16 @@ class AppServiceProvider extends ServiceProvider
                 }
             } catch (\Throwable) {
                 $view->with('unreadMessages', 0);
+            }
+
+            try {
+                if (Schema::hasTable('job_applications')) {
+                    $view->with('unreadApplications', JobApplication::where('is_read', false)->count());
+                } else {
+                    $view->with('unreadApplications', 0);
+                }
+            } catch (\Throwable) {
+                $view->with('unreadApplications', 0);
             }
         });
     }

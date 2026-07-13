@@ -20,6 +20,12 @@
             <span class="nav-badge">{{ $unreadMessages }}</span>
             @endif
         </a>
+        <a href="{{ route('admin.applications.index') }}" class="{{ request()->routeIs('admin.applications.*') ? 'active' : '' }}">
+            <i class="fa fa-file-text-o"></i> Applications
+            @if(($unreadApplications ?? 0) > 0)
+            <span class="nav-badge">{{ $unreadApplications }}</span>
+            @endif
+        </a>
 
         <div class="admin-nav-label">Content</div>
         <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
@@ -27,6 +33,9 @@
         </a>
         <a href="{{ route('admin.sliders.index') }}" class="{{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">
             <i class="fa fa-picture-o"></i> Home Sliders
+        </a>
+        <a href="{{ route('admin.home-cards.index') }}" class="{{ request()->routeIs('admin.home-cards.*') ? 'active' : '' }}">
+            <i class="fa fa-th-large"></i> Home Cards
         </a>
         <a href="{{ route('admin.projects.index') }}" class="{{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
             <i class="fa fa-briefcase"></i> Projects

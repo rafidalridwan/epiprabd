@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Client;
 use App\Models\ContactMessage;
+use App\Models\HomeCard;
 use App\Models\JobCircular;
 use App\Models\Page;
 use App\Models\Project;
@@ -81,6 +82,8 @@ class DatabaseSeeder extends Seeder
                 ['title' => 'Building', 'image' => 'images/projects/pic-2.jpg', 'category_slug' => 'building', 'link' => null],
                 ['title' => 'Office', 'image' => 'images/projects/pic-3.jpg', 'category_slug' => 'office', 'link' => null],
             ],
+            'home_cards_title' => 'What We Do',
+            'home_cards_subtitle' => 'Explore our core services designed to shape better spaces.',
             'is_published' => true,
         ]);
 
@@ -258,6 +261,34 @@ class DatabaseSeeder extends Seeder
                     'url' => '/about',
                     'is_active' => true,
                 ]
+            );
+        }
+
+        $homeCardData = [
+            [
+                'title' => 'Architecture',
+                'subtitle' => 'Thoughtful spaces shaped around how people live and work.',
+                'image' => 'images/gallery/portrait/pic1.jpg',
+                'link' => '/projects',
+            ],
+            [
+                'title' => 'Interior Design',
+                'subtitle' => 'Warm, functional interiors with lasting material choices.',
+                'image' => 'images/gallery/portrait/pic2.jpg',
+                'link' => '/projects',
+            ],
+            [
+                'title' => 'Planning',
+                'subtitle' => 'Clear planning from concept through construction delivery.',
+                'image' => 'images/gallery/portrait/pic3.jpg',
+                'link' => '/about',
+            ],
+        ];
+
+        foreach ($homeCardData as $i => $item) {
+            HomeCard::updateOrCreate(
+                ['sort_order' => $i + 1],
+                array_merge($item, ['is_active' => true, 'sort_order' => $i + 1])
             );
         }
 

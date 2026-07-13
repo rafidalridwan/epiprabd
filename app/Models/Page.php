@@ -15,6 +15,7 @@ class Page extends Model
         'facts_subtitle', 'facts_heading', 'facts_content',
         'facts_bg_image', 'facts_stats',
         'show_work_spans_section', 'work_spans_heading', 'work_spans_items',
+        'home_cards_title', 'home_cards_subtitle',
         'about_gallery_images', 'about_button_text', 'about_button_link',
         'experts_heading', 'experts_bg_image', 'show_experts_section',
         'is_published',

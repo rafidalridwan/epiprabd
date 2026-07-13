@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JobCircular extends Model
 {
@@ -21,6 +22,11 @@ class JobCircular extends Model
         ];
     }
 
+    public function applications(): HasMany
+    {
+        return $this->hasMany(JobApplication::class);
+    }
+
     public function isOpen(): bool
     {
         if (! $this->deadline) {
@@ -30,3 +36,4 @@ class JobCircular extends Model
         return $this->deadline->isFuture() || $this->deadline->isToday();
     }
 }
+

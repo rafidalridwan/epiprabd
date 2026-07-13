@@ -15,6 +15,7 @@ class="page-home"
 <link rel="stylesheet" href="{{ asset('css/rev-glass-break.css') }}">
 <link rel="stylesheet" href="{{ asset('css/clients-section.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home-work-spans.css') }}">
+<link rel="stylesheet" href="{{ asset('css/home-cards.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home-hero-animations.css') }}">
 <link rel="stylesheet" href="{{ asset('css/home-mad-slider.css') }}">
 @endpush
@@ -44,6 +45,43 @@ class="page-home"
         </div>
     </div>
 </div>
+
+@if($homeCards->count())
+<div class="section-full p-t80 p-b80 home-cards-section">
+    <div class="container">
+        @if($page->home_cards_title || $page->home_cards_subtitle)
+        <div class="section-head text-left m-b40">
+            @if($page->home_cards_title)
+            <h2 class="text-uppercase font-36">{{ $page->home_cards_title }}</h2>
+            @endif
+            <div class="wt-separator-outer">
+                <div class="wt-separator bg-black"></div>
+            </div>
+            @if($page->home_cards_subtitle)
+            <p class="font-16 m-t15">{{ $page->home_cards_subtitle }}</p>
+            @endif
+        </div>
+        @endif
+        <div class="home-cards-grid">
+            @foreach($homeCards as $card)
+            @php $tag = $card->link ? 'a' : 'div'; @endphp
+            <{{ $tag }}
+                @if($card->link) href="{{ $card->link }}" @endif
+                class="home-card"
+            >
+                <div class="home-card__media">
+                    <img src="{{ media_url($card->image, 'images/gallery/portrait/pic1.jpg') }}" alt="{{ $card->title }}">
+                </div>
+                <h3 class="home-card__title">{{ $card->title }}</h3>
+                @if($card->subtitle)
+                <p class="home-card__subtitle">{{ $card->subtitle }}</p>
+                @endif
+            </{{ $tag }}>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
 
 <div class="section-full p-t80 p-lr80 latest_project-outer square_shape3">
     <div class="container">

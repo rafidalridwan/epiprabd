@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HomeCardController;
+use App\Http\Controllers\Admin\JobApplicationController as AdminJobApplicationController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\ProjectCategoryController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\JobCircularController as AdminJobCircularController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobCircularController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -39,11 +42,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/projects/map', [ProjectController::class, 'map'])->name('projects.map');
+Route::get('/projects/map', function () {
+    return redirect(route('projects.index').'#project-map');
+});
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/career', [JobCircularController::class, 'index'])->name('career.index');
 Route::get('/jobs/{slug}', [JobCircularController::class, 'show'])->name('jobs.show');
+Route::post('/jobs/{slug}/apply', [JobApplicationController::class, 'store'])->name('jobs.apply');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -61,7 +67,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('team', TeamMemberController::class)->except(['show'])->parameters(['team' => 'team']);
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
     Route::resource('clients', ClientController::class)->except(['show']);
+    Route::resource('home-cards', HomeCardController::class)->except(['show']);
+    Route::put('/home-cards-section', [HomeCardController::class, 'updateSection'])->name('home-cards.section');
     Route::resource('jobs', AdminJobCircularController::class)->except(['show'])->parameters(['job' => 'job']);
+
+    Route::get('/applications', [AdminJobApplicationController::class, 'index'])->name('applications.index');
+    Route::get('/applications/{application}', [AdminJobApplicationController::class, 'show'])->name('applications.show');
+    Route::get('/applications/{application}/cv', [AdminJobApplicationController::class, 'download'])->name('applications.download');
+    Route::delete('/applications/{application}', [AdminJobApplicationController::class, 'destroy'])->name('applications.destroy');
 
     Route::get('/messages', [AdminContactMessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [AdminContactMessageController::class, 'show'])->name('messages.show');

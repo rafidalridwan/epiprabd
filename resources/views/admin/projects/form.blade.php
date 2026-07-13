@@ -127,7 +127,7 @@
             </div>
             <div class="admin-form-group">
                 <label>Map Location</label>
-                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Optional coordinates to show this project on the Project Map. Right-click a place in Google Maps and copy the latitude/longitude.</p>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Optional coordinates to show this project on the Projects page map. Right-click a place in Google Maps and copy the latitude/longitude.</p>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                     <div>
                         <label class="admin-form-hint" style="display:block;margin-bottom:0.35rem;">Latitude</label>
