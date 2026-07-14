@@ -55,6 +55,9 @@
         <a href="{{ route('admin.jobs.index') }}" class="{{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}">
             <i class="fa fa-id-card-o"></i> Job Circulars
         </a>
+        <a href="{{ route('admin.blogs.index') }}" class="{{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}">
+            <i class="fa fa-newspaper-o"></i> Blogs
+        </a>
 
         <div class="admin-nav-label">System</div>
         <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">

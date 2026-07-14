@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactMessageController as AdminContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\JobCircularController as AdminJobCircularController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
@@ -40,6 +42,9 @@ Route::get('/seed', function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/projects/map', function () {
@@ -70,6 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('home-cards', HomeCardController::class)->except(['show']);
     Route::put('/home-cards-section', [HomeCardController::class, 'updateSection'])->name('home-cards.section');
     Route::resource('jobs', AdminJobCircularController::class)->except(['show'])->parameters(['job' => 'job']);
+    Route::resource('blogs', AdminBlogController::class)->except(['show']);
 
     Route::get('/applications', [AdminJobApplicationController::class, 'index'])->name('applications.index');
     Route::get('/applications/{application}', [AdminJobApplicationController::class, 'show'])->name('applications.show');

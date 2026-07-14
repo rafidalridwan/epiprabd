@@ -23,11 +23,17 @@
                         <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
                             <a href="{{ route('about') }}">About</a>
                         </li>
+                        <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
+                            <a href="{{ route('services') }}">Services</a>
+                        </li>
                         <li class="{{ request()->routeIs('projects.*') ? 'active' : '' }}">
                             <a href="{{ route('projects.index') }}">Projects</a>
                         </li>
                         <li class="{{ request()->routeIs('career.*') || request()->routeIs('jobs.*') ? 'active' : '' }}">
                             <a href="{{ route('career.index') }}">Career</a>
+                        </li>
+                        <li class="{{ request()->routeIs('blog.*') ? 'active' : '' }}">
+                            <a href="{{ route('blog.index') }}">Blogs</a>
                         </li>
                         <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                             <a href="{{ route('contact') }}">Contact Us</a>

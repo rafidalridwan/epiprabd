@@ -17,7 +17,7 @@
         $quickLinks = [
             ['label' => 'About Us', 'url' => route('about')],
             ['label' => 'Contact Us', 'url' => route('contact')],
-            ['label' => 'Our Services', 'url' => route('projects.index')],
+            ['label' => 'Our Services', 'url' => route('services')],
             ['label' => 'Terms & Condition', 'url' => '#'],
             ['label' => 'Support', 'url' => route('contact')],
         ];

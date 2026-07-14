@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Blog;
 use App\Models\Client;
 use App\Models\ContactMessage;
 use App\Models\HomeCard;
@@ -37,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'site_address' => 'Shop No-81, 82, Station Road, Railway Market, Puran Bogra, Bangladesh',
             'footer_text' => 'Copyright © 2024 Pipra',
             'footer_services' => "Architecture|#\n3D Animation|#\nHouse Planning|#\nInterior Design|#\nConstruction|#",
-            'footer_quick_links' => "About Us|/about\nContact Us|/contact\nOur Services|/projects\nTerms & Condition|#\nSupport|/contact",
+            'footer_quick_links' => "About Us|/about\nContact Us|/contact\nOur Services|/services\nTerms & Condition|#\nSupport|/contact",
             'map_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.010148022944!2d-0.13445098404809602!3d51.51302981811226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604d31cdfefbb%3A0x27d5339f1859d7f1!2s62%20Dean%20St%2C%20London%20W1D%204QF%2C%20UK!5e0!3m2!1sen!2sin!4v1666266891426!5m2!1sen!2sin',
             'facebook' => '#',
             'twitter' => '#',
@@ -131,6 +132,15 @@ class DatabaseSeeder extends Seeder
             'banner_title' => 'Join our team — explore career opportunities',
             'banner_image' => 'images/background/bg-11.jpg',
             'meta_title' => 'Career',
+            'is_published' => true,
+        ]);
+
+        Page::updateOrCreate(['slug' => 'blog'], [
+            'title' => 'Blogs',
+            'banner_title' => 'Insights, ideas, and inspiration',
+            'banner_image' => 'images/background/bg-11.jpg',
+            'meta_title' => 'Blogs',
+            'heading' => 'Our Blogs',
             'is_published' => true,
         ]);
 
@@ -333,6 +343,41 @@ class DatabaseSeeder extends Seeder
                     'is_published' => true,
                     'show_on_home' => true,
                     'sort_order' => $i + 1,
+                ])
+            );
+        }
+
+        $blogs = [
+            [
+                'title' => 'Design Trends for Modern Homes',
+                'slug' => 'design-trends-for-modern-homes',
+                'excerpt' => 'Discover the latest architecture and interior trends shaping contemporary living spaces.',
+                'content' => '<p>Modern homes are evolving with cleaner lines, open layouts, and sustainable materials. In this article we explore the most influential design trends of the year.</p><p>From biophilic design to multifunctional rooms, homeowners are prioritizing comfort, flexibility, and connection with nature.</p>',
+                'image' => 'images/gallery/portrait/pic1.jpg',
+            ],
+            [
+                'title' => 'How Thoughtful Architecture Improves Daily Life',
+                'slug' => 'how-thoughtful-architecture-improves-daily-life',
+                'excerpt' => 'Good design is more than aesthetics — it quietly improves how we live, work, and rest.',
+                'content' => '<p>Thoughtful architecture considers light, flow, and human scale. When these elements work together, everyday routines become easier and more enjoyable.</p><p>We share practical examples from residential and workplace projects that demonstrate the impact of intentional design.</p>',
+                'image' => 'images/gallery/portrait/pic2.jpg',
+            ],
+            [
+                'title' => 'Sustainable Materials for Lasting Spaces',
+                'slug' => 'sustainable-materials-for-lasting-spaces',
+                'excerpt' => 'A guide to choosing durable, eco-conscious materials that look beautiful for years.',
+                'content' => '<p>Sustainable building is no longer a niche choice. Materials such as reclaimed timber, low-VOC finishes, and locally sourced stone can elevate a project while reducing environmental impact.</p><p>Learn how our studio evaluates material options for performance, aesthetics, and longevity.</p>',
+                'image' => 'images/gallery/portrait/pic3.jpg',
+            ],
+        ];
+
+        foreach ($blogs as $i => $item) {
+            Blog::updateOrCreate(
+                ['slug' => $item['slug']],
+                array_merge($item, [
+                    'is_published' => true,
+                    'sort_order' => $i + 1,
+                    'published_at' => now()->subDays(($i + 1) * 7),
                 ])
             );
         }

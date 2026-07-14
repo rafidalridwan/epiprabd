@@ -47,6 +47,7 @@
 .page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(4) { animation-delay: 0.30s; }
 .page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(5) { animation-delay: 0.36s; }
 .page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(6) { animation-delay: 0.42s; }
+.page-home .site-header--hero.is-header-intro .header-nav .nav > li:nth-child(7) { animation-delay: 0.48s; }
 
 .page-home .site-header--hero.is-header-intro .logo-header {
     animation: homeHeroNavIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;

@@ -120,7 +120,7 @@
                     </div>
                     @endif
                     @if($job->isOpen())
-                    <a href="#apply-form" class="site-button white radius-no text-uppercase m-t10">
+                    <a href="#apply-form" class="site-button green radius-no text-uppercase m-t10">
                         <span class="font-12 letter-spacing-5">Apply Now</span>
                     </a>
                     @else
