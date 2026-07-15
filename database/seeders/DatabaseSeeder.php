@@ -278,18 +278,21 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Architecture',
                 'subtitle' => 'Thoughtful spaces shaped around how people live and work.',
+                'details' => '<p>We design buildings and spaces that respond to context, climate, and how people actually use them. From early concepts through construction, our architects balance form, function, and lasting quality.</p><ul><li>Concept and schematic design</li><li>Detailed design development</li><li>Construction documentation</li></ul>',
                 'image' => 'images/gallery/portrait/pic1.jpg',
                 'link' => '/projects',
             ],
             [
                 'title' => 'Interior Design',
                 'subtitle' => 'Warm, functional interiors with lasting material choices.',
+                'details' => '<p>Our interiors team creates warm, practical spaces with materials and finishes chosen to last. We collaborate closely with architects and clients from mood boards through to completion.</p><ul><li>Space planning and layouts</li><li>Material and finish selection</li><li>Furniture and lighting concepts</li></ul>',
                 'image' => 'images/gallery/portrait/pic2.jpg',
                 'link' => '/projects',
             ],
             [
                 'title' => 'Planning',
                 'subtitle' => 'Clear planning from concept through construction delivery.',
+                'details' => '<p>Clear planning keeps projects on track from the first sketch to hand-over. We coordinate approvals, budgets, and timelines so delivery stays predictable and efficient.</p><ul><li>Master planning and feasibility</li><li>Permit and approval support</li><li>Delivery coordination</li></ul>',
                 'image' => 'images/gallery/portrait/pic3.jpg',
                 'link' => '/about',
             ],

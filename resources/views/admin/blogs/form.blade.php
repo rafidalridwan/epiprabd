@@ -44,9 +44,50 @@
                 'current' => $blog->image,
                 'required' => false,
                 'optionalHint' => $blog->exists ? '(leave empty to keep current)' : '(optional)',
-                'sizeTip' => 'Recommended: 1200×800px JPG or PNG for blog cards.',
+                'sizeTip' => 'Recommended: 1200×800px JPG or PNG for blog cards and banner.',
                 'fallback' => 'images/gallery/portrait/pic1.jpg',
             ])
+
+            <div class="admin-form-group admin-multi-image-upload" data-multi-image-upload data-multi-image-no-video>
+                <label>Gallery Images (Slider)</label>
+                <p class="admin-form-hint" style="margin-top:0;margin-bottom:0.75rem;">Upload multiple images for the auto-playing slider on the blog detail page. If none are added, the featured image is used.</p>
+
+                @if($blog->exists && $blog->images->count())
+                <div class="admin-gallery-grid" data-gallery-existing>
+                    @foreach($blog->images as $galleryImage)
+                    <div class="admin-gallery-item">
+                        <label class="admin-gallery-item-remove-label">
+                            <input type="checkbox" name="remove_images[]" value="{{ $galleryImage->id }}">
+                            <span class="admin-gallery-item-frame">
+                                <img src="{{ media_url($galleryImage->image, 'images/gallery/portrait/pic1.jpg') }}" alt="Gallery image">
+                            </span>
+                            <span class="admin-gallery-item-remove">Remove</span>
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
+
+                <div class="admin-gallery-grid" data-gallery-preview hidden></div>
+
+                <div class="admin-file-input">
+                    <input
+                        type="file"
+                        id="blog-gallery-images"
+                        class="admin-file-input-native"
+                        name="images[]"
+                        accept="image/*"
+                        multiple
+                        data-multi-image-input
+                    >
+                    <label for="blog-gallery-images" class="admin-file-input-trigger">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>Choose images</span>
+                    </label>
+                    <span class="admin-file-input-name" data-multi-image-filename>No files chosen</span>
+                </div>
+                <p class="admin-form-hint"><i class="fa fa-info-circle"></i> Recommended: 1200×800px or larger JPG/PNG. You can select multiple files at once.</p>
+            </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                 <div class="admin-form-group">

@@ -34,13 +34,18 @@ class BlogController extends Controller
             $validated['image'] = store_public_upload($request->file('image'), 'uploads/blog');
         }
 
-        Blog::create($validated);
+        unset($validated['images'], $validated['remove_images']);
+
+        $blog = Blog::create($validated);
+        $this->storeGalleryImages($blog, $request);
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog post created successfully.');
     }
 
     public function edit(Blog $blog)
     {
+        $blog->load('images');
+
         return view('admin.blogs.form', compact('blog'));
     }
 
@@ -63,7 +68,11 @@ class BlogController extends Controller
             unset($validated['image']);
         }
 
+        unset($validated['images'], $validated['remove_images']);
+
         $blog->update($validated);
+        $this->removeGalleryImages($blog, $request);
+        $this->storeGalleryImages($blog, $request);
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog post updated successfully.');
     }
@@ -84,7 +93,38 @@ class BlogController extends Controller
             'sort_order' => 'nullable|integer',
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|max:4096',
+            'images' => 'nullable|array',
+            'images.*' => 'image|max:4096',
+            'remove_images' => 'nullable|array',
+            'remove_images.*' => 'integer|exists:blog_images,id',
         ]);
+    }
+
+    private function storeGalleryImages(Blog $blog, Request $request): void
+    {
+        if (! $request->hasFile('images')) {
+            return;
+        }
+
+        $sortOrder = (int) $blog->images()->max('sort_order');
+
+        foreach ($request->file('images') as $file) {
+            $blog->images()->create([
+                'image' => store_public_upload($file, 'uploads/blog'),
+                'sort_order' => ++$sortOrder,
+            ]);
+        }
+    }
+
+    private function removeGalleryImages(Blog $blog, Request $request): void
+    {
+        $removeIds = $request->input('remove_images', []);
+
+        if (empty($removeIds)) {
+            return;
+        }
+
+        $blog->images()->whereIn('id', $removeIds)->delete();
     }
 
     private function uniqueSlug(string $title, ?int $ignoreId = null): string

@@ -81,6 +81,7 @@ class HomeCardController extends Controller
         return $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'nullable|string|max:500',
+            'details' => 'nullable|string',
             'link' => 'nullable|string|max:500',
             'sort_order' => 'nullable|integer',
             'image' => ($updating ? 'nullable' : 'required') . '|image|max:4096',

@@ -9,6 +9,7 @@ class HomeCard extends Model
     protected $fillable = [
         'title',
         'subtitle',
+        'details',
         'image',
         'link',
         'sort_order',

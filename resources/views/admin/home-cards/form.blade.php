@@ -7,7 +7,7 @@
 <div class="admin-page-header">
     <div>
         <h1>{{ $card->exists ? 'Edit Home Card' : 'Add Home Card' }}</h1>
-        <p>Shown in the three-card section on the home page.</p>
+        <p>{{ $card->exists ? 'Update this service card and its popup details.' : 'Add a service card shown on the services page.' }}</p>
     </div>
     <a href="{{ route('admin.home-cards.index') }}" class="admin-btn admin-btn-secondary">
         <i class="fa fa-arrow-left"></i> Back
@@ -30,6 +30,19 @@
                 <label for="subtitle">Subtitle</label>
                 <input id="subtitle" class="form-control" name="subtitle" value="{{ old('subtitle', $card->subtitle) }}" maxlength="500">
                 @error('subtitle')<span class="text-danger">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="admin-form-group">
+                <label for="details">Details</label>
+                <textarea
+                    id="details"
+                    class="admin-form-control richtext-editor"
+                    name="details"
+                    data-richtext-height="280"
+                    placeholder="Full service details shown in the popup..."
+                >{{ old('details', $card->details) }}</textarea>
+                <p class="admin-form-hint">Shown in the popup when a visitor clicks this service card.</p>
+                @error('details')<span class="text-danger">{{ $message }}</span>@enderror
             </div>
 
             @include('admin.partials.image-upload', [

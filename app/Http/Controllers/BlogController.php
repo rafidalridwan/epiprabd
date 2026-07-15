@@ -23,6 +23,7 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $slug)
             ->where('is_published', true)
+            ->with('images')
             ->firstOrFail();
 
         $related = Blog::where('is_published', true)

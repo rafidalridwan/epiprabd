@@ -7,7 +7,7 @@
 <div class="admin-page-header">
     <div>
         <h1>Home Cards</h1>
-        <p>Manage the three-card section on the home page (image, title, subtitle).</p>
+        <p>Manage service cards (image, title, subtitle, and details popup).</p>
     </div>
     <a href="{{ route('admin.home-cards.create') }}" class="admin-btn admin-btn-primary">
         <i class="fa fa-plus"></i> Add Card

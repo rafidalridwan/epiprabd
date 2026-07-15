@@ -12,6 +12,7 @@ class="page-blog-detail"
 @endpush
 
 @section('content')
+@php $sliderItems = $blog->sliderItems(); @endphp
 @include('partials.banner', [
     'bannerTitle' => $blog->title,
     'bannerImage' => $blog->image ?? 'images/background/bg-11.jpg',
@@ -23,9 +24,19 @@ class="page-blog-detail"
         <div class="row">
             <div class="col-lg-8 col-md-12 m-b30">
                 <article class="blog-detail bg-white">
+                    @if($sliderItems->isNotEmpty())
                     <div class="blog-detail__media">
-                        <img src="{{ media_url($blog->image, 'images/gallery/portrait/pic1.jpg') }}" alt="{{ $blog->title }}">
+                        <div class="owl-carousel blog-detail-carousel owl-btn-bottom-right">
+                            @foreach($sliderItems as $slide)
+                            <div class="item">
+                                <div class="blog-detail__slide">
+                                    <img src="{{ media_url($slide->image, 'images/gallery/portrait/pic1.jpg') }}" alt="{{ $blog->title }}">
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
+                    @endif
                     <div class="blog-detail__body">
                         <time class="blog-detail__date" datetime="{{ ($blog->published_at ?? $blog->created_at)?->toDateString() }}">
                             {{ ($blog->published_at ?? $blog->created_at)?->format('F d, Y') }}
@@ -66,3 +77,28 @@ class="page-blog-detail"
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function () {
+    var $carousel = $('.blog-detail-carousel');
+
+    if (!$carousel.length) {
+        return;
+    }
+
+    $carousel.owlCarousel({
+        items: 1,
+        loop: $carousel.find('.item').length > 1,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        margin: 0,
+        nav: true,
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        dots: false,
+        smartSpeed: 600,
+    });
+});
+</script>
+@endpush
